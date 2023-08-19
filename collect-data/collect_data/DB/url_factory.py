@@ -2,20 +2,28 @@
 from .sql_url.mysql_url import MysqlUrl
 from .sql_url.postgres_url import PostgresUrl
 from .sql_url.sqlite_url import SqliteUrl
+from config.data_yaml_generator import DataYamlGenerator
 
 class UrlFactory:
-    def __init__(self, engine):
-        mysql = MysqlUrl()
-        postgres = PostgresUrl()
-        sqlite = SqliteUrl()
-        self.urls = {
-            "mysql": mysql.get_url(),
-            "postgres": postgres.get_url(),
-            "sqlite": sqlite.get_url()
-        }
+
+    def __init__(self, engine):        
+        
+        self.dyg = DataYamlGenerator('config/settings.yaml')
         self.engine = engine
     
     def get_url(self):
-        return self.urls[self.engine]
+
+        params= self.dyg.get_values(section=self.engine)
+
+        if self.engine == 'mysql':
+            mysql = MysqlUrl(params)
+            return mysql.get_url()
+        elif self.engine == 'postgres':
+            postgres = PostgresUrl(params)
+            return postgres.get_url()
+        elif self.engine == 'sqlite':
+            sqlite = SqliteUrl(params)
+            return sqlite.get_url()
+        
     
     

@@ -2,10 +2,10 @@ from sqlalchemy.engine import URL
 
 class SqliteUrl:
     
-    def __init__(self):
+    def __init__(self, params):
         self.url = URL.create(
-            drivername="sqlite",
-            database="opa-binance.db"
+            drivername= params['drivername'],
+            database= params['database']
         )
     
     def get_url(self):

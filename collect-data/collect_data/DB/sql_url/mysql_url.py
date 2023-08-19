@@ -1,15 +1,17 @@
 from sqlalchemy.engine import URL
+from config.data_yaml_generator import DataYamlGenerator
 
 class MysqlUrl:
     
-    def __init__(self):        
+    def __init__(self, params):
+
         self.url = URL.create(
-            drivername="pymysql",
-            username='root',
-            password='123456',
-            host='192.168.230.133',
-            port=3306,
-            database='opa-binance'
+            drivername= params['drivername'],
+            username= params['username'],
+            password= params['password'],
+            host= params['host'],
+            port= params['port'],
+            database= params['database']
         )
     
     def get_url(self):

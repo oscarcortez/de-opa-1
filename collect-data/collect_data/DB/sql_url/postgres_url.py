@@ -1,15 +1,17 @@
 from sqlalchemy.engine import URL
+from config.data_yaml_generator import DataYamlGenerator
 
 class PostgresUrl:
     
-    def __init__(self):
+    def __init__(self, params):
+        
         self.url = URL.create(
-            drivername="postgresql",
-            username='postgres',
-            password='123456',
-            host='localhost',
-            port=5437,
-            database='opa-binance'
+            drivername=params['drivername'],
+            username=params['username'],
+            password=params['password'],
+            host=params['host'],
+            port=params['port'],
+            database=params['database']
         )
     
     def get_url(self):

@@ -161,4 +161,4 @@ cython_debug/
 
 collect-data/collect_data/config/secrets.yaml
 
-collect-data/collect_data/opa-binance.db
+collect-data/collect_data/data/*
