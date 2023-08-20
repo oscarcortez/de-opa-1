@@ -7,6 +7,5 @@ services:
     build:
       context: .
       dockerfile: ./Dockerfile
-    image: opa-binance:latest
     ports:
       - 8000:8000
