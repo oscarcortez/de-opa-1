@@ -1,0 +1,11 @@
+version: "3.9"
+
+services:
+  configuration_service:
+    container_name: opa-binance
+    restart: always
+    build:
+      context: .
+      dockerfile: ./Dockerfile
+    ports:
+      - 8000:8000
