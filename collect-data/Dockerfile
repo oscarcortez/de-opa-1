@@ -1,15 +1,16 @@
 FROM python:3.11
 
-RUN pip install poetry
+ENV WITH_DOCKER=True
+
+ENV PYTHONPATH=/app
 
 WORKDIR /app
+COPY . /app
 
-COPY pyproject.toml ./
-COPY poetry.lock ./
-COPY collect_data ./collect_data
+EXPOSE 6030
 
-RUN touch README.md
-
-RUN poetry install
+RUN pip install poetry
+RUN poetry config virtualenvs.create false
+RUN poetry install --only main
 
 ENTRYPOINT [ "poetry", "run", "main.py"]
