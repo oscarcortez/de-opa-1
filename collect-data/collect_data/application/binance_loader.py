@@ -6,25 +6,26 @@ from DB.url_factory import UrlFactory
 from sqlalchemy.engine import URL
 from tools.decorators.logger import logger
 from tools.decorators.timer import timer
+from tools.constants import Constants as C
 
 class BinanceLoader:
 
     @logger    
-    def __init__(self, destination_source, table_name, simbol, interval, start):
+    def __init__(self, destination_source, table_name, symbol, interval, start):
         
-        dyg = DataYamlGenerator('config/secrets.yaml')
-        binance_credentials = dyg.get_values(section='binance')        
-        self.client = Client(binance_credentials['api_secret'], binance_credentials['api_secret'])
-        self.destination_source = destination_source.name.lower()
+        self.dyg = DataYamlGenerator(C.PATH_CONFIG_SECRETS_YAML)
+        binance_credentials = self.dyg.get_values(section= C.YAML_SECTION_BINANCE)
+        self.client = Client(binance_credentials['api_key'], binance_credentials['api_secret'])
+        self.destination_source = destination_source
         self.table_name = table_name
-        self.simbol = simbol
+        self.symbol = symbol
         self.interval = interval
         self.start = start
 
     @logger
     def get_dataframe_lastday(self):
 
-            data = self.client.get_historical_klines(self.simbol, self.interval, self.start)
+            data = self.client.get_historical_klines(self.symbol, self.interval, self.start)
             self.df_data = pd.DataFrame(data)
 
 
@@ -59,12 +60,15 @@ class BinanceLoader:
 
     @logger
     def exec_destination_source(self):
-                
-        if self.destination_source == 'csv':
-            self.df_data.to_csv(f'data/{self.table_name}.csv', index=False)
-        elif self.destination_source == 'json':
-            self.df_data.to_json(f'data/{self.table_name}.json', orient='records', lines=True)
-        if self.destination_source in ['sqlite', 'postgres', 'mysql']:
+
+        self.dyg.set_yaml_file(C.PATH_CONFIG_SETTINGS_YAML)    
+        if self.destination_source == C.CSV:
+            path = self.dyg.get_values(section= C.CSV)['path']
+            self.df_data.to_csv(f'{path}{self.table_name}.csv', index=False)
+        elif self.destination_source == C.JSON:
+            path = self.dyg.get_values(section= C.JSON)['path']
+            self.df_data.to_json(f'{path}{self.table_name}.{C.JSON}', orient='records', lines=True)
+        if self.destination_source in [C.DB_MYSQL, C.DB_POSTGRES, C.DB_SQLITE]:
             uf = UrlFactory(self.destination_source)
             engine = create_engine(uf.get_url())
             self.df_data.to_sql(self.table_name, con=engine, index=False, if_exists='replace')

@@ -5,6 +5,10 @@ class DataYamlGenerator:
 
         self.yaml_file = yaml_file
 
+    def set_yaml_file(self, yaml_file):
+
+        self.yaml_file = yaml_file
+
     def get_values(self, section):
 
         with open(self.yaml_file, 'r') as file:

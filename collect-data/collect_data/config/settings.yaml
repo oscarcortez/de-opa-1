@@ -1,3 +1,13 @@
+# options interval: https://python-binance.readthedocs.io/en/latest/constants.html
+# options destination_source: csv, json, postgres, sqlite
+
+binance_loader:
+  destination_source: json
+  table_name: bitcoin-last-day
+  symbol: BTCUSDT
+  interval: 5m
+  start: 1 day ago UTC
+
 postgres:
   drivername: postgresql
   username: postgres
@@ -17,3 +27,9 @@ mysql:
   host: 192.168.230.133
   port: 3306
   database: opa-binance
+
+json:
+  path: data/
+
+csv:
+  path: data/
