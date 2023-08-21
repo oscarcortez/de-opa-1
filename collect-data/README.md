@@ -13,4 +13,5 @@ poetry run main.py binance_historical_data
 Streaming will store data from 1 day ago, frecuency: 5 minutes
 
 poetry run main.py binance_streaming_data
+
 poetry run main.py
