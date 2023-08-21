@@ -1,12 +1,21 @@
 # options interval: https://python-binance.readthedocs.io/en/latest/constants.html
 # options destination_source: csv, json, postgres, sqlite
 
-binance_loader:
+binance_historical_data:
   destination_source: json
-  table_name: bitcoin-last-day
+  table_name: historical_data
+  symbol: BTCUSDT
+  interval: 1d
+  start: 1 Jan, 1990
+  end: 1 day ago UTC
+
+binance_streaming_data:
+  destination_source: json
+  table_name: streaming_data
   symbol: BTCUSDT
   interval: 5m
   start: 1 day ago UTC
+  end: null
 
 postgres:
   drivername: postgresql

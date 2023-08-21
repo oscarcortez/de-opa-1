@@ -11,7 +11,7 @@ from tools.constants import Constants as C
 class BinanceLoader:
 
     @logger    
-    def __init__(self, destination_source, table_name, symbol, interval, start):
+    def __init__(self, destination_source, table_name, symbol, interval, start, end = None):
         
         self.dyg = DataYamlGenerator(C.PATH_CONFIG_SECRETS_YAML)
         binance_credentials = self.dyg.get_values(section= C.YAML_SECTION_BINANCE)
@@ -21,11 +21,12 @@ class BinanceLoader:
         self.symbol = symbol
         self.interval = interval
         self.start = start
+        self.end = end
 
     @logger
     def get_dataframe_lastday(self):
 
-            data = self.client.get_historical_klines(self.symbol, self.interval, self.start)
+            data = self.client.get_historical_klines(self.symbol, self.interval, self.start, self.end)
             self.df_data = pd.DataFrame(data)
 
 
