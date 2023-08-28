@@ -21,8 +21,8 @@ postgres:
   drivername: postgresql
   username: postgres
   password: 123456
-  host: localhost
-  port: 5437
+  host: 192.168.230.128
+  port: 5432
   database: opa_binance
 
 sqlite:
