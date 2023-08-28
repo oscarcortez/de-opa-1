@@ -6,8 +6,10 @@ from DB.url_factory import UrlFactory
 from sqlalchemy.engine import URL
 from tools.decorators.logger import logger
 from tools.decorators.timer import timer
+from tools.decorators.show_properties import show_properties
 from tools.constants import Constants as C
 
+@show_properties
 class BinanceLoader:
 
     @logger    
