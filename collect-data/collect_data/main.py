@@ -12,6 +12,7 @@ import sys
 if __name__ == "__main__":
 
     env = EnvSelector()
+    print('environment:', env.environment)
     env_settings = env.get_settings_path()
 
     terminal_title_generator(show = True)
