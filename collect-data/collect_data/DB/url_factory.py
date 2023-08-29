@@ -3,12 +3,12 @@ from .sql_url.mysql_url import MysqlUrl
 from .sql_url.postgres_url import PostgresUrl
 from .sql_url.sqlite_url import SqliteUrl
 from config.data_yaml_generator import DataYamlGenerator
-
+from tools.constants import Constants as C
 class UrlFactory:
 
     def __init__(self, engine):        
         
-        self.dyg = DataYamlGenerator('config/settings.yaml')
+        self.dyg = DataYamlGenerator(C.PATH_CONFIG_SETTINGS_YAML)
         self.engine = engine
     
     def get_url(self):
