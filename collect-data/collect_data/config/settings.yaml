@@ -31,7 +31,7 @@ sqlite:
 
 mysql:
   drivername: pymysql
-  username: root
+  username: user
   password: 123456
   host: 192.168.230.133
   port: 3306
