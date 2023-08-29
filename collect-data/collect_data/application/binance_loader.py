@@ -26,7 +26,7 @@ class BinanceLoader:
         self.end = end
 
     @logger
-    def get_dataframe_lastday(self):
+    def get_dataframe(self):
 
             data = self.client.get_historical_klines(self.symbol, self.interval, self.start, self.end)
             self.df_data = pd.DataFrame(data)
@@ -36,18 +36,18 @@ class BinanceLoader:
     def format_df_columns(self):
             
             columns = {
-                0: 'open_time',
-                1: 'open_price',
-                2: 'high_price',
-                3: 'low_price',
-                4: 'close_price',
-                5: 'volume',
-                6: 'close_time',
-                7: 'quote_asset_volume',
-                8: 'number_of_trades',
-                9: 'taker_buy_base_asset_volume',
-                10: 'taker_buy_quote_asset_volume',
-                11: 'ignore'
+                0:  C.DF_COL_0,
+                1:  C.DF_COL_1,
+                2:  C.DF_COL_2,
+                3:  C.DF_COL_3,
+                4:  C.DF_COL_4,
+                5:  C.DF_COL_5,
+                6:  C.DF_COL_6,
+                7:  C.DF_COL_7,
+                8:  C.DF_COL_8,
+                9:  C.DF_COL_9,
+                10: C.DF_COL_10,
+                11: C.DF_COL_11
             }
 
             self.df_data = self.df_data.rename(columns=columns)
@@ -79,11 +79,10 @@ class BinanceLoader:
     @timer
     def generate(self):
 
-        self.get_dataframe_lastday()
+        self.get_dataframe()
         self.format_df_columns()
         self.format_df_values()
         self.exec_destination_source()
-
 
 
 
