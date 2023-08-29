@@ -11,13 +11,16 @@ from tools.constants import Constants as C
 from tools.history import History
 from datetime import datetime
 from DB.mongodb_connection import mongo_db
+from tools.env_selector import EnvSelector
 @show_properties
 class BinanceLoader:
 
     @logger    
     def __init__(self, destination_source, table_name, symbol, interval, start, end = None):
         
-        self.dyg = DataYamlGenerator(C.PATH_CONFIG_SECRETS_YAML)
+        env = EnvSelector()
+        env_settings = env.get_secrets_path()
+        self.dyg = DataYamlGenerator(yaml_file=env_settings)
         binance_credentials = self.dyg.get_values(section= C.YAML_SECTION_BINANCE)
         self.client = Client(binance_credentials['api_key'], binance_credentials['api_secret'])
         self.destination_source = destination_source

@@ -26,3 +26,12 @@ class EnvSelector:
             'development': f'{C.PATH_HISTORY_CSV}'
         }
         return result[self.environment]
+    
+    def get_secrets_path(self):
+        result = {
+            'production': f'{C.PATH_LINUX}{C.PATH_CONFIG_SECRETS_YAML}',
+            'development': f'{C.PATH_HISTORY_CSV}'
+        }
+        return result[self.environment]
+
+        
