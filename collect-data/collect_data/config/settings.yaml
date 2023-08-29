@@ -2,7 +2,7 @@
 # options destination_source: csv, json, postgres, sqlite
 
 binance_historical_data:
-  destination_source: mysql
+  destination_source: postgres
   table_name: historical_data
   symbol: BTCUSDT
   interval: 1d
@@ -10,7 +10,7 @@ binance_historical_data:
   end: 1 day ago UTC
 
 binance_streaming_data:
-  destination_source: msyql
+  destination_source: postgres
   table_name: streaming_data
   symbol: BTCUSDT
   interval: 5m
