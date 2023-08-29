@@ -1,2 +1,10 @@
 table_name,datetime,rows
-
+streaming_data,2023-08-29 03:45:00,45
+historical_data,2023-08-29 03:45:18,2203
+streaming_data,2023-08-29 04:07:41,50
+streaming_data,2023-08-29 04:21:09,53
+historical_data,2023-08-29 04:46:42,2203
+streaming_data,2023-08-29 04:46:55,58
+streaming_data,2023-08-29 04:51:22,59
+historical_data,2023-08-29 05:08:27,2203
+streaming_data,2023-08-29 05:15:56,64
