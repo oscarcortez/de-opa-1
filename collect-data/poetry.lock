@@ -1083,6 +1083,16 @@ files = [
 ]
 
 [[package]]
+name = "pyloaders"
+version = "0.0.5"
+description = "Basic animated ASCII loaders for Python scripts"
+optional = false
+python-versions = "*"
+files = [
+    {file = "pyloaders-0.0.5.tar.gz", hash = "sha256:11c491190a9abc2d5886d87a3da1292d54c85cab422b51cc32ac307cf4e82016"},
+]
+
+[[package]]
 name = "pymysql"
 version = "1.1.0"
 description = "Pure Python MySQL Driver"
@@ -1728,4 +1738,4 @@ multidict = ">=4.0"
 [metadata]
 lock-version = "2.0"
 python-versions = "^3.11"
-content-hash = "e9c522d28c1a2568a82b6c0323c782bfa194412a8cb9427c5c6a960215141f69"
+content-hash = "ff7e9e686e362671d77a842ceecbd96ec1af1a44379f3bc424e41af21d127ac8"

@@ -28,8 +28,9 @@ class BinanceLoader:
     @logger
     def get_dataframe(self):
 
-            data = self.client.get_historical_klines(self.symbol, self.interval, self.start, self.end)
-            self.df_data = pd.DataFrame(data)
+        data = self.client.get_historical_klines(self.symbol, self.interval, self.start, self.end)
+        self.df_data = pd.DataFrame(data)
+        self.df_shape = self.df_data.shape
 
 
     @logger
@@ -76,6 +77,9 @@ class BinanceLoader:
             engine = create_engine(uf.get_url())
             self.df_data.to_sql(self.table_name, con=engine, index=False, if_exists='replace')
 
+    def print_df_columns_rows(self):
+        print(f'From Binance API were loaded: {self.df_shape[0]} rows and {self.df_shape[1]} columns')
+
     @timer
     def generate(self):
 
@@ -83,7 +87,7 @@ class BinanceLoader:
         self.format_df_columns()
         self.format_df_values()
         self.exec_destination_source()
-
+        self.print_df_columns_rows()
 
 
 

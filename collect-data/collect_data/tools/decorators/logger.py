@@ -1,13 +1,18 @@
-def logger(func):
+from loaders import SpinningLoader
+loader = SpinningLoader()
+
+def logger(func):    
     def wrapper(*args, **kwargs):
-        print(func.__name__,': ',end="")
+        
         try:
-            print('Started', end="")
+            print('Step: ',func.__name__)
+            loader.start()
             result = func(*args, **kwargs)
         except Exception as e:
-            print(f", Error in: {e}", end="")
-            raise  # Re-lanza la última excepción
+            print(f"Error in: {e}")
+            raise  
         else:
-            print(f', Successful')
+            loader.stop()
             return result
     return wrapper
+

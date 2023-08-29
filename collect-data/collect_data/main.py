@@ -9,7 +9,7 @@ import sys
 
 
 if __name__ == "__main__":
-    
+
     terminal_title_generator(show = True)
     show_datetime_execution(script_name= __file__)
     section = C.YAML_SECTION_BINANCE_STREAMING_DATA
