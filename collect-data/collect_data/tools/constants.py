@@ -7,9 +7,13 @@ class Constants:
     DB_MYSQL = 'mysql'
     DB_SQLITE = 'sqlite'
 
-    PATH_CONFIG_SETTINGS_YAML = '/home/oscar/git-repos/de-opa-1/collect-data/collect_data/config/settings.yaml'
-    PATH_CONFIG_SECRETS_YAML = '/home/oscar/git-repos/de-opa-1/collect-data/collect_data/config/secrets.yaml'
-    PATH_HISTORY_CSV = '/home/oscar/git-repos/de-opa-1/collect-data/collect_data/data/history.csv'
+    PATH_LINUX = '/home/oscar/git-repos/de-opa-1/collect-data/collect_data/'
+    PATH_CONFIG_PROD_SETTINGS_YAML = 'config/settings.prod.yaml'
+    PATH_CONFIG_DEV_SETTINGS_YAML = 'config/settings.dev.yaml'
+    PATH_CONFIG_SETTINGS_YAML = 'config/settings.yaml'
+
+    PATH_CONFIG_SECRETS_YAML = 'config/secrets.yaml'
+    PATH_HISTORY_CSV = 'data/history.csv'
 
     YAML_SECTION_BINANCE_HISTORICAL_DATA= 'binance_historical_data'
     YAML_SECTION_BINANCE_STREAMING_DATA= 'binance_streaming_data'

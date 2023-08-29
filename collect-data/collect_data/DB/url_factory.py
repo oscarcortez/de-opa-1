@@ -4,11 +4,15 @@ from .sql_url.postgres_url import PostgresUrl
 from .sql_url.sqlite_url import SqliteUrl
 from config.data_yaml_generator import DataYamlGenerator
 from tools.constants import Constants as C
+from tools.env_selector import EnvSelector
+
 class UrlFactory:
 
     def __init__(self, engine):        
         
-        self.dyg = DataYamlGenerator(C.PATH_CONFIG_SETTINGS_YAML)
+        env = EnvSelector()
+        env_settings = env.get_env_settings_path()
+        self.dyg = DataYamlGenerator(yaml_file= env_settings)
         self.engine = engine
     
     def get_url(self):

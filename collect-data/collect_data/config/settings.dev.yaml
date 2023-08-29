@@ -1,0 +1,25 @@
+postgres:
+  drivername: postgresql
+  username: postgres
+  password: 123456
+  host: 192.168.230.128
+  port: 5432
+  database: opa_binance
+
+sqlite:
+  drivername: sqlite
+  database: data/opa_binance.db
+
+mysql:
+  drivername: mysql+pymysql
+  username: user
+  password: 123456
+  host: 192.168.230.128
+  port: 3306
+  database: opa_binance
+
+json:
+  path: data/
+
+csv:
+  path: data/

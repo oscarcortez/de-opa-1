@@ -5,10 +5,14 @@ from tools.constants import Constants as C
 from tools.str_short_to_complete import str_short_to_complete as str_complete
 from tools.show_datetime_execution import show_datetime_execution
 from tools.terminal_title_generator import terminal_title_generator
+from tools.env_selector import EnvSelector
 import sys
 
 
 if __name__ == "__main__":
+
+    env = EnvSelector()
+    env_settings = env.get_settings_path()
 
     terminal_title_generator(show = True)
     show_datetime_execution(script_name= __file__)
@@ -17,7 +21,7 @@ if __name__ == "__main__":
     if len(sys.argv) > 1:
         section = str_complete(sys.argv[1])
 
-    dyg = DataYamlGenerator(yaml_file= C.PATH_CONFIG_SETTINGS_YAML)
+    dyg = DataYamlGenerator(yaml_file= env_settings)
     params = dyg.get_values(section)
     bdg = BinanceDateGenerator(type_data= section)
     bl = BinanceLoader(

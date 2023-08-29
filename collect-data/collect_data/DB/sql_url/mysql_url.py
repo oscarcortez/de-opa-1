@@ -1,12 +1,11 @@
 from sqlalchemy.engine import URL
-from config.data_yaml_generator import DataYamlGenerator
 
 class MysqlUrl:
     
     def __init__(self, params):
 
         self.url = URL.create(
-            drivername= params['drivername'],
+            drivername= params['drivername'],            
             username= params['username'],
             password= params['password'],
             host= params['host'],
