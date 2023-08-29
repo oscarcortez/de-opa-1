@@ -8,7 +8,7 @@ postgres:
 
 sqlite:
   drivername: sqlite
-  database: /home/oscar/apps/sqlite/opa_binance.db
+  database: ~/docker-volumes/sqlite/opa_binance.db
 
 mysql:
   drivername: pymysql
@@ -27,7 +27,7 @@ mongodb:
   port: 27017
 
 json:
-  path: /home/oscar/apps/json_files/
+  path: ~/docker-volumes/json_files/
 
 csv:
-  path: /home/oscar/apps/csv_files/
+  path: ~/docker-volumes/csv_files/

@@ -163,3 +163,4 @@ collect-data/collect_data/config/secrets.yaml
 
 collect-data/collect_data/data/historical_data.csv
 collect-data/collect_data/data/streaming_data.csv
+collect-data/collect_data/data/history.csv
