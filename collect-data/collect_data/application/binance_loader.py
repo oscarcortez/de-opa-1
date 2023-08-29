@@ -8,7 +8,8 @@ from tools.decorators.logger import logger
 from tools.decorators.timer import timer
 from tools.decorators.show_properties import show_properties
 from tools.constants import Constants as C
-
+from tools.history import History
+from datetime import datetime
 @show_properties
 class BinanceLoader:
 
@@ -24,6 +25,7 @@ class BinanceLoader:
         self.interval = interval
         self.start = start
         self.end = end
+        self.history = History()
 
     @logger
     def get_dataframe(self):
@@ -80,6 +82,10 @@ class BinanceLoader:
     def print_df_columns_rows(self):
         print(f'From Binance API were loaded: {self.df_shape[0]} rows and {self.df_shape[1]} columns')
 
+    @logger
+    def save_history(self):
+        self.history.add(self.table_name, datetime= datetime.now().strftime("%Y-%m-%d %H:%M:%S"), rows= self.df_shape[0] )
+    
     @timer
     def generate(self):
 
@@ -88,6 +94,7 @@ class BinanceLoader:
         self.format_df_values()
         self.exec_destination_source()
         self.print_df_columns_rows()
+        self.save_history()
 
 
 
