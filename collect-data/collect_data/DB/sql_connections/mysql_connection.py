@@ -1,6 +1,6 @@
 from sqlalchemy.engine import URL
 
-class MysqlUrl:
+class MysqlConnection:
     
     def __init__(self, params):
 

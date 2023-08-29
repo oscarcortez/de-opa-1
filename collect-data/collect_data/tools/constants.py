@@ -6,6 +6,7 @@ class Constants:
     DB_POSTGRES = 'postgres'
     DB_MYSQL = 'mysql'
     DB_SQLITE = 'sqlite'
+    DB_MONGODB = 'mongodb'
 
     PATH_LINUX = '/home/oscar/git-repos/de-opa-1/collect-data/collect_data/'
     PATH_CONFIG_PROD_SETTINGS_YAML = 'config/settings.prod.yaml'

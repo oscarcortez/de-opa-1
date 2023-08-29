@@ -18,8 +18,16 @@ mysql:
   port: 3306
   database: opa_binance
 
+mongodb:
+  drivername: mongodb
+  username: root
+  password: 123456
+  host: 192.168.230.128
+  database: opa_binance
+  port: 27017
+
 json:
-  path: /home/oscar/apps/json_files
+  path: /home/oscar/apps/json_files/
 
 csv:
-  path: /home/oscar/apps/csv_files
+  path: /home/oscar/apps/csv_files/

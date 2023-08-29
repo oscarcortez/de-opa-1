@@ -1,6 +1,6 @@
 from sqlalchemy.engine import URL
 
-class SqliteUrl:
+class SqliteConnection:
     
     def __init__(self, params):
         self.url = URL.create(

@@ -1,7 +1,7 @@
 from sqlalchemy.engine import URL
 from config.data_yaml_generator import DataYamlGenerator
 
-class PostgresUrl:
+class PostgresConnection:
     
     def __init__(self, params):
         

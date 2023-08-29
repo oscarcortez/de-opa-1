@@ -10,6 +10,7 @@ from tools.decorators.show_properties import show_properties
 from tools.constants import Constants as C
 from tools.history import History
 from datetime import datetime
+from DB.mongodb_connection import mongo_db
 @show_properties
 class BinanceLoader:
 
@@ -74,10 +75,15 @@ class BinanceLoader:
         elif self.destination_source == C.JSON:
             path = self.dyg.get_values(section= C.JSON)['path']
             self.df_data.to_json(f'{path}{self.table_name}.{C.JSON}', orient='records', lines=True)
-        if self.destination_source in [C.DB_MYSQL, C.DB_POSTGRES, C.DB_SQLITE]:
+        elif self.destination_source in [C.DB_MYSQL, C.DB_POSTGRES, C.DB_SQLITE]:
             uf = UrlFactory(self.destination_source)
             engine = create_engine(uf.get_url())
             self.df_data.to_sql(self.table_name, con=engine, index=False, if_exists='replace')
+        elif self.destination_source == C.DB_MONGODB:            
+            collection = mongo_db[self.table_name]
+            documents = self.df_data.to_dict(orient='records')
+            collection.drop()
+            collection.insert_many(documents)
 
     def print_df_columns_rows(self):
         print(f'From Binance API were loaded: {self.df_shape[0]} rows and {self.df_shape[1]} columns')

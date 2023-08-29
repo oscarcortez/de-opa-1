@@ -1,7 +1,7 @@
 
-from .sql_url.mysql_url import MysqlUrl
-from .sql_url.postgres_url import PostgresUrl
-from .sql_url.sqlite_url import SqliteUrl
+from .sql_connections.mysql_connection import MysqlConnection
+from .sql_connections.postgres_connection import PostgresConnection
+from .sql_connections.sqlite_connection import SqliteConnection
 from config.data_yaml_generator import DataYamlGenerator
 from tools.constants import Constants as C
 from tools.env_selector import EnvSelector
@@ -20,13 +20,13 @@ class UrlFactory:
         params= self.dyg.get_values(section=self.engine)
 
         if self.engine == 'mysql':
-            mysql = MysqlUrl(params)
+            mysql = MysqlConnection(params)
             return mysql.get_url()
         elif self.engine == 'postgres':
-            postgres = PostgresUrl(params)
+            postgres = PostgresConnection(params)
             return postgres.get_url()
         elif self.engine == 'sqlite':
-            sqlite = SqliteUrl(params)
+            sqlite = SqliteConnection(params)
             return sqlite.get_url()
         
     
