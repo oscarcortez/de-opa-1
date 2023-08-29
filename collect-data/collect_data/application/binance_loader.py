@@ -56,7 +56,7 @@ class BinanceLoader:
     def format_df_values(self):
         
         self.df_data.open_time = pd.to_datetime(self.df_data.open_time, unit='ms')
-        self.df_data.close_time = pd.to_datetime(self.df_data.open_time, unit='ms')
+        self.df_data.close_time = pd.to_datetime(self.df_data.close_time, unit='ms')
         self.df_data.open_price = self.df_data.open_price.astype(float)
         self.df_data.high_price = self.df_data.high_price.astype(float)
         self.df_data.close_price = self.df_data.close_price.astype(float)
@@ -67,7 +67,7 @@ class BinanceLoader:
         self.dyg.set_yaml_file(C.PATH_CONFIG_SETTINGS_YAML)    
         if self.destination_source == C.CSV:
             path = self.dyg.get_values(section= C.CSV)['path']
-            self.df_data.to_csv(f'{path}{self.table_name}.csv', index=False)
+            self.df_data.to_csv(f'{path}{self.table_name}.{C.CSV}', index=False)
         elif self.destination_source == C.JSON:
             path = self.dyg.get_values(section= C.JSON)['path']
             self.df_data.to_json(f'{path}{self.table_name}.{C.JSON}', orient='records', lines=True)
