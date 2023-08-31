@@ -2,7 +2,7 @@
 # options destination_source: csv, json, postgres, sqlite
 
 binance:
-  destination_source: json
+  destination_source: postgres
   symbol: BTCUSDT
 
 binance_historical_data:  
