@@ -1,12 +1,12 @@
 from tools.constants import RelativePath, File
-from tools.data_yaml_generator import DataYamlGenerator
+from tools.yaml_reader import YAMLReader
 
 class BinanceDataJsonRepository:
 
     def __init__(self, repository = File.JSON):
         
         self.repository= repository
-        self.dyg = DataYamlGenerator(yaml_file= RelativePath.ENV_SETTINGS)
+        self.dyg = YAMLReader(yaml_file= RelativePath.ENV_SETTINGS)
 
     def load_from_dataframe(self, df_data, table_name = None):
 

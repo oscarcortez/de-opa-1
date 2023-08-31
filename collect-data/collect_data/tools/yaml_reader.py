@@ -2,14 +2,15 @@ import yaml
 from tools.constants import AbsolutePath
 from tools.os_environment import os_environment
 
-class DataYamlGenerator:
+class YAMLReader:
     
-    def __init__(self, yaml_file, environment = os_environment()):
+    def __init__(self, yaml_file, environment = os_environment(), section = None):
 
         path = ''
         if environment == 'production':
             path = AbsolutePath.APP_PROD
         self.yaml_file = f'{path}{yaml_file}'
+        self.section = section
 
     def set_yaml_file(self, yaml_file):
 

@@ -1,4 +1,4 @@
-from tools.data_yaml_generator import DataYamlGenerator
+from tools.yaml_reader import YAMLReader
 from binance import Client
 import pandas as pd
 from tools.constants import DF
@@ -7,12 +7,9 @@ from tools.constants import Section
 
 class BinanceApiClient:
 
-    def __init__(self, symbol= None, interval= None, start= None, end = None):
-
-        secrets = DataYamlGenerator(yaml_file= RelativePath.SECRETS)
-        binance_credentials = secrets.get_values(section = Section.BINANCE)
-        self.client = Client(binance_credentials['api_key'], binance_credentials['api_secret'])
-    
+    def __init__(self, client: Client = None, symbol= None, interval= None, start= None, end = None):
+        
+        self.client = client
         self.symbol = symbol
         self.interval = interval
         self.start = start
