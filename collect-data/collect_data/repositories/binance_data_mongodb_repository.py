@@ -1,5 +1,3 @@
-
-#from binance_data_repository import BinanceDataRepository
 from DB.mongodb_connection import mongo_db
 
 class BinanceDataMongodbRepository:

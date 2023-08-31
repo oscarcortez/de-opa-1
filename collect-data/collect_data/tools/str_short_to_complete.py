@@ -10,8 +10,6 @@ def str_short_to_complete(value):
         'mysql': 'BinanceDataMysqlRepository',
         'postgres': 'BinanceDataPostgresRepository',
         'sqlite': 'BinanceDataSqliteRepository',
-        'false': False,
-        'true': True,
     }
 
     return result[value]

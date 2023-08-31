@@ -1045,6 +1045,23 @@ docs = ["furo", "olefile", "sphinx (>=2.4)", "sphinx-copybutton", "sphinx-inline
 tests = ["check-manifest", "coverage", "defusedxml", "markdown2", "olefile", "packaging", "pyroma", "pytest", "pytest-cov", "pytest-timeout"]
 
 [[package]]
+name = "prettytable"
+version = "3.8.0"
+description = "A simple Python library for easily displaying tabular data in a visually appealing ASCII table format"
+optional = false
+python-versions = ">=3.8"
+files = [
+    {file = "prettytable-3.8.0-py3-none-any.whl", hash = "sha256:03481bca25ae0c28958c8cd6ac5165c159ce89f7ccde04d5c899b24b68bb13b7"},
+    {file = "prettytable-3.8.0.tar.gz", hash = "sha256:031eae6a9102017e8c7c7906460d150b7ed78b20fd1d8c8be4edaf88556c07ce"},
+]
+
+[package.dependencies]
+wcwidth = "*"
+
+[package.extras]
+tests = ["pytest", "pytest-cov", "pytest-lazy-fixture"]
+
+[[package]]
 name = "psycopg2"
 version = "2.9.7"
 description = "psycopg2 - Python-PostgreSQL Database Adapter"
@@ -1694,6 +1711,17 @@ socks = ["pysocks (>=1.5.6,!=1.5.7,<2.0)"]
 zstd = ["zstandard (>=0.18.0)"]
 
 [[package]]
+name = "wcwidth"
+version = "0.2.6"
+description = "Measures the displayed width of unicode strings in a terminal"
+optional = false
+python-versions = "*"
+files = [
+    {file = "wcwidth-0.2.6-py2.py3-none-any.whl", hash = "sha256:795b138f6875577cd91bba52baf9e445cd5118fd32723b460e30a0af30ea230e"},
+    {file = "wcwidth-0.2.6.tar.gz", hash = "sha256:a5220780a404dbe3353789870978e472cfe477761f06ee55077256e509b156d0"},
+]
+
+[[package]]
 name = "websockets"
 version = "11.0.3"
 description = "An implementation of the WebSocket Protocol (RFC 6455 & 7692)"
@@ -1862,4 +1890,4 @@ multidict = ">=4.0"
 [metadata]
 lock-version = "2.0"
 python-versions = "^3.11"
-content-hash = "e921dddf8db1cbb7ab1a7eccef1e4eed7efc904387b5ef7257e8c59e2af2696c"
+content-hash = "e8732d39c78a50b85cf58def4effc105c13c3722c40fa3749071f3f77c74ea35"

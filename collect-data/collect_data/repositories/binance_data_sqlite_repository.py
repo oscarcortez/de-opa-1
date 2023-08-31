@@ -1,4 +1,3 @@
-# from repositories.binance_data_sql_repository import BinanceDataSqlRepository
 from DB.sql_connections.sqlite_connection import sqlite_url_connection
 from sqlalchemy import create_engine
 

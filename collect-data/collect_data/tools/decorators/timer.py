@@ -6,6 +6,6 @@ def timer(func):
         result = func(*args, **kwargs)
         end_time = time.time()
         execution_time = end_time - start_time
-        print(f"Step {func.__name__} took {execution_time:.2f} seconds to execute.")
+        print(f"Time execution: {execution_time:.2f} seconds.")
         return result
     return wrapper

@@ -1,8 +1,7 @@
-from tools.env_selector import EnvSelector
-from config.data_yaml_generator import DataYamlGenerator
+from tools.data_yaml_generator import DataYamlGenerator
 from binance import Client
 import pandas as pd
-from tools.constants import Constants as C
+from tools.constants import DF
 from tools.constants import RelativePath
 from tools.constants import Section
 
@@ -34,18 +33,18 @@ class BinanceApiClient:
     def rename_df_columns(self):
         
         columns = {
-            0:  C.DF_COL_0,
-            1:  C.DF_COL_1,
-            2:  C.DF_COL_2,
-            3:  C.DF_COL_3,
-            4:  C.DF_COL_4,
-            5:  C.DF_COL_5,
-            6:  C.DF_COL_6,
-            7:  C.DF_COL_7,
-            8:  C.DF_COL_8,
-            9:  C.DF_COL_9,
-            10: C.DF_COL_10,
-            11: C.DF_COL_11
+            0:  DF.COL_0,
+            1:  DF.COL_1,
+            2:  DF.COL_2,
+            3:  DF.COL_3,
+            4:  DF.COL_4,
+            5:  DF.COL_5,
+            6:  DF.COL_6,
+            7:  DF.COL_7,
+            8:  DF.COL_8,
+            9:  DF.COL_9,
+            10: DF.COL_10,
+            11: DF.COL_11
         }
 
         self.df_data = self.df_data.rename(columns=columns)

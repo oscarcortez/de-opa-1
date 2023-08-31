@@ -1,15 +1,17 @@
 from tools.binance_date_generator import BinanceDateGenerator
 from tools.os_environment import os_environment
 from tools.str_short_to_complete import str_short_to_complete as str_complete
+from tools.string_to_bool import string_to_bool
 from tools.decorators.logger import logger
 from tools.decorators.timer import timer
 from api_client.binance_api_client import BinanceApiClient
 from application.binance_data_application import BinanceDataApplication
 from tools.constants import Binance
-from tools.terminal_title_generator import terminal_title_generator
+from tools.print_terminal_title import print_terminal_title
+from tools.print_table import print_table
 from tools.history import History
 from datetime import datetime
-
+  
 class BinanceDataContainer:
     
     def __init__(self,                  
@@ -30,9 +32,11 @@ class BinanceDataContainer:
     
     def read_terminal_arguments(self):
         if len(self.command_arguments) > 1:
+            print('commands 1')
             self.streaming_historical_section = str_complete(self.command_arguments[1])
-        if len(self.command_arguments) > 2:
-            self.is_terminal_execution = self.command_arguments[2]
+        if len(self.command_arguments) > 2:            
+            self.is_terminal_execution = str(self.command_arguments[2]).strip()
+            print(f'commands 2P{self.is_terminal_execution}P')
 
     def get_common_params(self):
         self.common_params = self.binance_api_settings.get_values(Binance.NAME)
@@ -63,25 +67,38 @@ class BinanceDataContainer:
         self.binance_data_application.load_from_dataframe(self.dataframe)
 
     def show_details(self):
-        terminal_title_generator(self.is_terminal_execution)
-        print('terminal',self.is_terminal_execution)
+        
+        print_terminal_title(show= string_to_bool(self.is_terminal_execution))
+
+    def show_history(self):
+        titles = ['Type Data', 'Date', 'Rows', 'Evironment', 'Destination', 'Symbol']
+        values = [
+            self.type_data_params['table_name'],
+            datetime.now().strftime("%Y-%m-%d %H:%M:%S"),
+            self.dataframe.shape[0],
+            self.environment,
+            self.common_params['destination_source'],
+            self.common_params['symbol']
+        ]
+        print_table(titles, values, self.is_terminal_execution)
     
     def save_history(self):
         self.history.add(
             self.type_data_params['table_name'],
-            datetime= datetime.now().strftime("%Y-%m-%d %H:%M:%S"), 
+            datetime= datetime.now().strftime("%Y-%m-%d %H:%M:%S"),
             rows= self.dataframe.shape[0],
-            environment = self.environment, 
+            environment = self.environment,
             destination_source = self.common_params['destination_source'],
             symbol = self.common_params['symbol'],
         )
     
-    @logger
     @timer
+    @logger
     def execute(self):
         
-        self.show_details()
         self.read_terminal_arguments()
+        self.show_details()
+        
         self.get_common_params()
         self.get_type_data_params()
         self.get_range_dates()
@@ -90,4 +107,9 @@ class BinanceDataContainer:
         self.get_dataframe()
         self.load_from_dataframe()
         self.save_history()
+        self.show_history()
+        # if string_to_bool(self.is_terminal_execution):
+        #     print('soy true')
+        # else:
+        #     print('soy false')
         

@@ -1,4 +1,4 @@
-def terminal_title_generator(show = True):
+def print_terminal_title(show = True):
     
     result = ""
     if show is True:

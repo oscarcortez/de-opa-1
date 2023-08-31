@@ -1,5 +1,5 @@
 from sqlalchemy.engine import URL
-from config.data_yaml_generator import DataYamlGenerator
+from tools.data_yaml_generator import DataYamlGenerator
 from tools.constants import RelativePath, DB
 
 def sqlite_url_connection():

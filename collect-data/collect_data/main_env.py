@@ -1,20 +1,5 @@
-from tools.env_selector import EnvSelector
-
-env = EnvSelector()
-print('environment:', env.environment)
-
-class square:
-    def __init__(self):
-        print('Im square')
-
-class circle: 
-    def __init__(self):
-        print('Im circle')
-
-class_name_string= 'square'
-class_name = globals()[class_name_string]
-form = class_name()
-
+from tools.os_environment import os_environment
 import os
 
+print('environment:', os_environment())
 print('login: ',os.getlogin())

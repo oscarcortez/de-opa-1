@@ -1,5 +1,5 @@
 import yaml
-from tools.constants import Constants as C, AbsolutePath
+from tools.constants import AbsolutePath
 from tools.os_environment import os_environment
 
 class DataYamlGenerator:
