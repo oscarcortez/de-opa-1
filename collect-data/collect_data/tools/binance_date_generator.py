@@ -1,4 +1,5 @@
 from datetime import datetime, timedelta
+from tools.constants import Binance
 
 class BinanceDateGenerator:
     
@@ -15,13 +16,13 @@ class BinanceDateGenerator:
 
     def get_start(self):
         
-        if self.type_data == 'binance_historical_data':
+        if self.type_data == Binance.HISTORICAL_DATA:
             return '1 Jan, 1990'
         else:
             return self.get_midnight_today()
     
     def get_end(self):
-        if self.type_data == 'binance_historical_data':
+        if self.type_data == Binance.HISTORICAL_DATA:
             return '1 day ago UTC'
         else:
             return None

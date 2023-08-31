@@ -1,24 +1,40 @@
-class Constants:
+from tools.os_environment import os_environment
 
+class RelativePath:
+    BINANCE_API_SETTINGS = 'config/api_binance_settings.yaml'
+    ENV_SETTINGS = f'config/{os_environment()}.settings.yaml'
+    SECRETS = 'config/secrets.yaml'
+
+class AbsolutePath:
+    APP_PROD = '/home/oscar/git-repos/de-opa-1/collect-data/collect_data/'
+
+class Section: 
+    BINANCE = 'binance'
+
+class File:
     JSON = 'json'
     CSV = 'csv'
 
-    DB_POSTGRES = 'postgres'
-    DB_MYSQL = 'mysql'
-    DB_SQLITE = 'sqlite'
-    DB_MONGODB = 'mongodb'
+class DB:
+    POSTGRES = 'postgres'
+    MYSQL = 'mysql'
+    SQLITE = 'sqlite'
+    MONGODB = 'mongodb'
 
-    PATH_LINUX = '/home/oscar/git-repos/de-opa-1/collect-data/collect_data/'
+class Binance:
+    HISTORICAL_DATA= 'binance_historical_data'
+    STREAMING_DATA= 'binance_streaming_data'
+    NAME = 'binance'
+class Constants:
+
     PATH_CONFIG_PROD_SETTINGS_YAML = 'config/settings.prod.yaml'
     PATH_CONFIG_DEV_SETTINGS_YAML = 'config/settings.dev.yaml'
-    PATH_CONFIG_SETTINGS_YAML = 'config/settings.yaml'
+    RELATIVE_PATH_SETTINGS = 'config/settings.yaml'
 
-    PATH_CONFIG_SECRETS_YAML = 'config/secrets.yaml'
+    SECRETS_YAML = 'config/secrets.yaml'
     PATH_HISTORY_CSV = 'data/history.csv'
 
-    YAML_SECTION_BINANCE_HISTORICAL_DATA= 'binance_historical_data'
-    YAML_SECTION_BINANCE_STREAMING_DATA= 'binance_streaming_data'
-    YAML_SECTION_BINANCE = 'binance'
+    SQLITE = 'sqlite'
 
     DF_COL_0= 'open_time'
     DF_COL_1= 'open_price'

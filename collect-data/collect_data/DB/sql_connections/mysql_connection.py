@@ -1,17 +1,18 @@
 from sqlalchemy.engine import URL
+from config.data_yaml_generator import DataYamlGenerator
+from tools.constants import Constants as C, RelativePath, DB
 
-class MysqlConnection:
-    
-    def __init__(self, params):
+def mysql_url_connection():
 
-        self.url = URL.create(
-            drivername= params['drivername'],            
-            username= params['username'],
-            password= params['password'],
-            host= params['host'],
-            port= params['port'],
-            database= params['database']
-        )
+    dyg = DataYamlGenerator(yaml_file= RelativePath.ENV_SETTINGS)
+    params = dyg.get_values(section= DB.MYSQL)
+    url = URL.create(
+        drivername= params['drivername'],            
+        username= params['username'],
+        password= params['password'],
+        host= params['host'],
+        port= params['port'],
+        database= params['database']
+    )
     
-    def get_url(self):
-        return self.url
+    return url

@@ -8,13 +8,13 @@ postgres:
 
 sqlite:
   drivername: sqlite
-  database: ~/docker-volumes/sqlite/opa_binance.db
+  database: data/opa_binance.db
 
 mysql:
-  drivername: pymysql
+  drivername: mysql+pymysql
   username: user
   password: 123456
-  host: 192.168.230.133
+  host: 192.168.230.128
   port: 3306
   database: opa_binance
 
@@ -27,7 +27,10 @@ mongodb:
   port: 27017
 
 json:
-  path: ~/docker-volumes/json_files/
+  path: data/
 
 csv:
-  path: ~/docker-volumes/csv_files/
+  path: data/
+
+history:
+  path: G:\DATA-ENGINEER\data-scientest\logs

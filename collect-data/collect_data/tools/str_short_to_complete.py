@@ -4,6 +4,14 @@ def str_short_to_complete(value):
         'historical': 'binance_historical_data',
         'binance_streaming_data': 'binance_streaming_data',
         'binance_historical_data': 'binance_historical_data',
+        'csv': 'BinanceDataCsvRepository',
+        'json': 'BinanceDataJsonRepository',
+        'mongodb': 'BinanceDataMongodbRepository',
+        'mysql': 'BinanceDataMysqlRepository',
+        'postgres': 'BinanceDataPostgresRepository',
+        'sqlite': 'BinanceDataSqliteRepository',
+        'false': False,
+        'true': True,
     }
 
     return result[value]

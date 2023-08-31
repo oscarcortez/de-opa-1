@@ -161,6 +161,9 @@ cython_debug/
 
 collect-data/collect_data/config/secrets.yaml
 
-collect-data/collect_data/data/historical_data.csv
-collect-data/collect_data/data/streaming_data.csv
-collect-data/collect_data/data/history.csv
+# collect-data/collect_data/data/historical_data.csv
+# collect-data/collect_data/data/streaming_data.csv
+# collect-data/collect_data/data/history.csv
+# collect-data/collect_data/data/opa_binance.db
+
+collect-data/collect_data/data/*
