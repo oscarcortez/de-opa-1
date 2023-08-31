@@ -33,4 +33,4 @@ csv:
   path: ~/docker-volumes/csv_files/
 
 history:
-  path: ~/logs/de-opa-1/
+  path: ~/logs/de-opa-1/history.csv

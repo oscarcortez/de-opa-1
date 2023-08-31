@@ -33,4 +33,4 @@ csv:
   path: data/
 
 history:
-  path: G:\DATA-ENGINEER\data-scientest\logs
+  path: logs/history.csv
