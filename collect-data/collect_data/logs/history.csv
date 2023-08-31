@@ -1,1 +1,2 @@
+table_name,datetime,rows,environment,destination_source,symbol
 historical_data,2023-08-30 22:57:27,2205,development,postgres,BTCUSDT

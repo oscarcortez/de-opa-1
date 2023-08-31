@@ -167,3 +167,5 @@ collect-data/collect_data/config/secrets.yaml
 # collect-data/collect_data/data/opa_binance.db
 
 collect-data/collect_data/data/*
+
+collect-data/collect_data/logs/history.csv
