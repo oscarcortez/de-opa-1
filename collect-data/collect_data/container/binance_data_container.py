@@ -12,16 +12,23 @@ from tools.print_table import print_table
 from tools.history import History
 from datetime import datetime
 from tools.yaml_reader import YAMLReader
+from tools.command_line_arguments import CommandLineArguments
+from binance import Client
+from tools.constants import Section
+from tools.print_helper import print_helper
 
 class BinanceDataContainer:
     
     def __init__(self,                  
                  binance_api_settings: YAMLReader,
-                 binance_api_client: BinanceApiClient, 
+                 binance_api_client: BinanceApiClient,
+                 binance_client: Client,
                  binance_data_application: BinanceDataApplication,
                  history: History,
-                 command_arguments,
+                 command_arguments: CommandLineArguments,
+                 secrets_settings: YAMLReader,
                  is_terminal_execution = 'false',
+                 is_helper = False
                  ):
         
         self.environment = os_environment()
@@ -31,12 +38,21 @@ class BinanceDataContainer:
         self.binance_data_application = binance_data_application
         self.command_arguments = command_arguments
         self.history = history
-    
+        self.secrets_settings = secrets_settings
+        self.binance_client = binance_client
+        self.is_helper = is_helper
+
+    def set_binance_client(self):
+
+        credentials = self.secrets_settings.get_values(section = Section.BINANCE)
+        self.binance_client.API_KEY = credentials['api_key']
+        self.binance_client.API_SECRET = credentials['api_secret']
+
     def read_terminal_arguments(self):
-        if len(self.command_arguments) > 1:
-            self.type_data = str_complete(self.command_arguments[1])
-        if len(self.command_arguments) > 2:
-            self.is_terminal_execution = str(self.command_arguments[2]).strip()
+        
+        self.type_data = str_complete(self.command_arguments.get_type_data())
+        self.is_terminal_execution = str(self.command_arguments.get_show_details())
+        self.is_helper = self.command_arguments.is_helper()
 
     def get_common_params(self):
         self.common_params = self.binance_api_settings.get_values(Binance.NAME)
@@ -52,6 +68,7 @@ class BinanceDataContainer:
 
     def build_binance_api_client(self):        
         
+        self.binance_api_client.client = self.binance_client
         self.binance_api_client.symbol = self.common_params['symbol']
         self.binance_api_client.interval = self.type_data_params['interval']
         self.binance_api_client.start = self.start_range
@@ -75,7 +92,7 @@ class BinanceDataContainer:
         
         print_terminal_title(show= string_to_bool(self.is_terminal_execution))
 
-    def show_history(self):
+    def show_pretty_history(self):
         
         titles = ['Type Data', 'Date', 'Rows', 'Evironment', 'Destination', 'Symbol']
         values = [
@@ -87,6 +104,10 @@ class BinanceDataContainer:
             self.common_params['symbol']
         ]
         print_table(titles, values, string_to_bool(self.is_terminal_execution))
+
+        if not string_to_bool(self.is_terminal_execution):
+            
+            print(f'\n{values}')
     
     def save_history(self):
         
@@ -97,15 +118,19 @@ class BinanceDataContainer:
             environment = self.environment,
             destination_source = self.common_params['destination_source'],
             symbol = self.common_params['symbol'],
-        )
-    
+        )        
+
+    def execute_helper(self):
+
+        print_terminal_title(show= True)
+        print_helper()
+        
     @timer
     @logger
-    def execute(self):
+    def execute_application(self):
+
         
-        self.read_terminal_arguments()
         self.show_details()
-        
         self.get_common_params()
         self.get_type_data_params()
         self.get_range_dates()
@@ -114,6 +139,13 @@ class BinanceDataContainer:
         self.get_dataframe()
         self.load_from_dataframe()
         self.save_history()
-        self.show_history()
+        self.show_pretty_history()
 
+    def execute(self):
         
+        self.read_terminal_arguments()
+
+        if self.is_helper:
+            self.execute_helper()
+        else:
+            self.execute_application()

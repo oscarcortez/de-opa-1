@@ -15,10 +15,16 @@ class BinanceApiClient:
         self.start = start
         self.end = end
     
+    def set_client(self, client: Client):
+
+        self.client = client
+
     def set_start(self, start):
+        
         self.start = start
 
     def set_end(self, end):
+        
         self.end = end
         
     def resources_to_dataframe(self):
