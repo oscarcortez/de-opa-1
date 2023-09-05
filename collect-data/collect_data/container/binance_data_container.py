@@ -2,7 +2,7 @@ from tools.binance_date_generator import BinanceDateGenerator
 from tools.os_environment import os_environment
 from tools.str_short_to_complete import str_short_to_complete as str_complete
 from tools.string_to_bool import string_to_bool
-from tools.decorators.logger import logger
+from tools.decorators.console_loader import console_loader
 from tools.decorators.timer import timer
 from api_client.binance_api_client import BinanceApiClient
 from application.binance_data_application import BinanceDataApplication
@@ -16,6 +16,7 @@ from tools.command_line_arguments import CommandLineArguments
 from binance import Client
 from tools.constants import Section
 from tools.print_helper import print_helper
+from datetime import datetime,timezone
 
 class BinanceDataContainer:
     
@@ -55,9 +56,11 @@ class BinanceDataContainer:
         self.is_helper = self.command_arguments.is_helper()
 
     def get_common_params(self):
+
         self.common_params = self.binance_api_settings.get_values(Binance.NAME)
     
     def get_type_data_params(self):
+
         self.type_data_params = self.binance_api_settings.get_values(self.type_data)
 
     def get_range_dates(self):
@@ -66,7 +69,7 @@ class BinanceDataContainer:
         self.start_range = bdg.get_start()
         self.end_range = bdg.get_end()
 
-    def build_binance_api_client(self):        
+    def build_binance_api_client(self):
         
         self.binance_api_client.client = self.binance_client
         self.binance_api_client.symbol = self.common_params['symbol']
@@ -77,14 +80,14 @@ class BinanceDataContainer:
     def build_binance_data_application(self):
         
         self.binance_data_application.table_name = self.type_data_params['table_name']
-        self.binance_data_application.destination_source = self.common_params['destination_source']
+        self.binance_data_application.destination_source = str_complete( self.common_params['destination_source'] )
         self.binance_data_application.set_binance_data_repository()
 
-    def get_dataframe(self):
+    def get_dataframe_from_api_client(self):
         
         self.dataframe = self.binance_api_client.get_dataframe()
     
-    def load_from_dataframe(self):
+    def save_data(self):
         
         self.binance_data_application.load_from_dataframe(self.dataframe)
 
@@ -126,20 +129,18 @@ class BinanceDataContainer:
         print_helper()
         
     @timer
-    @logger
+    @console_loader
     def execute_application(self):
-
-        
-        self.show_details()
+                
         self.get_common_params()
         self.get_type_data_params()
         self.get_range_dates()
         self.build_binance_api_client()
         self.build_binance_data_application()
-        self.get_dataframe()
-        self.load_from_dataframe()
+        self.get_dataframe_from_api_client()     
+        self.save_data()
         self.save_history()
-        self.show_pretty_history()
+        
 
     def execute(self):
         
@@ -148,4 +149,7 @@ class BinanceDataContainer:
         if self.is_helper:
             self.execute_helper()
         else:
+            self.show_details()         
             self.execute_application()
+            self.show_pretty_history()
+            

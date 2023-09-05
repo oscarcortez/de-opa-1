@@ -27,9 +27,12 @@ class BinanceApiClient:
         
         self.end = end
         
-    def resources_to_dataframe(self):
+    def data_to_dataframe(self):
 
-        data = self.client.get_historical_klines(self.symbol, self.interval, self.start, self.end)
+        if self.end is None:
+            data = self.client.get_historical_klines(self.symbol, self.interval, self.start)
+        else:
+            data = self.client.get_historical_klines(self.symbol, self.interval, self.start, self.end)
         self.df_data = pd.DataFrame(data)
         self.df_shape = self.df_data.shape
     
@@ -63,8 +66,9 @@ class BinanceApiClient:
     
     def get_dataframe(self):
 
-        self.resources_to_dataframe()
-        self.rename_df_columns()
-        self.format_df_values()
+        self.data_to_dataframe()
+        if(self.df_data.shape[0] > 0):
+            self.rename_df_columns()
+            self.format_df_values()
 
         return self.df_data

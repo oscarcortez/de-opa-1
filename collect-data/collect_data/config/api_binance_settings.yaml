@@ -13,6 +13,6 @@ binance_historical_data:
 
 binance_streaming_data:
   table_name: streaming_data
-  interval: 5m
+  interval: 1m
   start: 1 day ago UTC
   end: null

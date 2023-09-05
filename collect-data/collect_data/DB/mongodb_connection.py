@@ -5,5 +5,5 @@ from tools.constants import DB, RelativePath
 dyg = YAMLReader(yaml_file= RelativePath.ENV_SETTINGS)
 
 params = dyg.get_values(section= DB.MONGODB)
-client = MongoClient(f"{params['drivername']}://{params['username']}:{params['password']}@{params['host']}:{params['port']}/admin")
-mongo_db = client[params['database']]
+mongo_client = MongoClient(f"{params['drivername']}://{params['username']}:{params['password']}@{params['host']}:{params['port']}/admin")
+mongo_db = mongo_client[params['database']]

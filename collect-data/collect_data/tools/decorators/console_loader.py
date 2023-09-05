@@ -1,11 +1,11 @@
 from loaders import SpinningLoader
 loader = SpinningLoader()
 
-def logger(func):    
+def console_loader(func):    
     def wrapper(*args, **kwargs):
         
         try:
-            print('Step: ',func.__name__)
+            print('Step:',func.__name__)
             loader.start()
             result = func(*args, **kwargs)
         except Exception as e:
