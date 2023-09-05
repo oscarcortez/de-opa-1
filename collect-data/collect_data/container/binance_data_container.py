@@ -12,10 +12,9 @@ from tools.print_table import print_table
 from tools.history import History
 from datetime import datetime
 from tools.yaml_reader import YAMLReader
-from tools.command_line_arguments import CommandLineArguments
+from tools.args_reader import ArgsReader
 from binance import Client
 from tools.constants import Section
-from tools.print_helper import print_helper
 from datetime import datetime,timezone
 
 class BinanceDataContainer:
@@ -26,10 +25,9 @@ class BinanceDataContainer:
                  binance_client: Client,
                  binance_data_application: BinanceDataApplication,
                  history: History,
-                 command_arguments: CommandLineArguments,
+                 command_arguments: ArgsReader,
                  secrets_settings: YAMLReader,
-                 is_terminal_execution = 'false',
-                 is_helper = False
+                 is_terminal_execution = 'false'
                  ):
         
         self.environment = os_environment()
@@ -41,7 +39,6 @@ class BinanceDataContainer:
         self.history = history
         self.secrets_settings = secrets_settings
         self.binance_client = binance_client
-        self.is_helper = is_helper
 
     def set_binance_client(self):
 
@@ -51,9 +48,8 @@ class BinanceDataContainer:
 
     def read_terminal_arguments(self):
         
-        self.type_data = str_complete(self.command_arguments.get_type_data())
-        self.is_terminal_execution = str(self.command_arguments.get_show_details())
-        self.is_helper = self.command_arguments.is_helper()
+        self.type_data = str_complete(self.command_arguments.type_data)
+        self.is_terminal_execution = str(self.command_arguments.printer)
 
     def get_common_params(self):
 
@@ -122,11 +118,6 @@ class BinanceDataContainer:
             destination_source = self.common_params['destination_source'],
             symbol = self.common_params['symbol'],
         )        
-
-    def execute_helper(self):
-
-        print_terminal_title(show= True)
-        print_helper()
         
     @timer
     @console_loader
@@ -145,11 +136,7 @@ class BinanceDataContainer:
     def execute(self):
         
         self.read_terminal_arguments()
-
-        if self.is_helper:
-            self.execute_helper()
-        else:
-            self.show_details()         
-            self.execute_application()
-            self.show_pretty_history()
+        self.show_details()         
+        self.execute_application()
+        self.show_pretty_history()
             

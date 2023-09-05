@@ -7,19 +7,23 @@ from tools.history import History
 from binance import Client
 from tools.constants import Section
 from tools.command_line_arguments import CommandLineArguments
-import sys
+from tools.args_reader import ArgsReader
 
 if __name__ == "__main__":
 
+    args_reader = ArgsReader()
+    # print(args_reader.type_data)
+    # print(args_reader.printer)
+
     path_settings= RelativePath.ENV_SETTINGS
     container = BinanceDataContainer(        
-        binance_api_settings= YAMLReader(yaml_file= RelativePath.BINANCE_API_SETTINGS),
-        binance_api_client= BinanceApiClient(),
+        binance_api_settings = YAMLReader(yaml_file= RelativePath.BINANCE_API_SETTINGS),
+        binance_api_client = BinanceApiClient(),
         binance_client = Client(),
-        binance_data_application= BinanceDataApplication(),
-        history= History(path_settings),
-        command_arguments=CommandLineArguments(sys.argv),
-        secrets_settings= YAMLReader(yaml_file= RelativePath.SECRETS)
+        binance_data_application = BinanceDataApplication(),
+        history = History(path_settings),
+        command_arguments = args_reader,
+        secrets_settings = YAMLReader(yaml_file= RelativePath.SECRETS)
     )
 
     container.execute()
