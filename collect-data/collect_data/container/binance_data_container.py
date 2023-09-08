@@ -136,7 +136,7 @@ class BinanceDataContainer:
     def execute(self):
         
         self.read_terminal_arguments()
-        self.show_details()         
+        self.show_details()
         self.execute_application()
         self.show_pretty_history()
             

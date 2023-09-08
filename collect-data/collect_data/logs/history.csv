@@ -114,3 +114,6 @@ streaming_data,2023-09-05 19:14:52,1155,development,postgres,BTCUSDT
 streaming_data,2023-09-05 19:27:13,1168,development,postgres,BTCUSDT
 streaming_data,2023-09-05 19:27:29,1168,development,postgres,BTCUSDT
 historical_data,2023-09-05 19:27:48,2210,development,postgres,BTCUSDT
+historical_data,2023-09-05 19:59:19,2210,development,postgres,BTCUSDT
+historical_data,2023-09-05 20:15:29,2211,development,postgres,BTCUSDT
+historical_data,2023-09-05 20:16:09,2211,development,postgres,BTCUSDT

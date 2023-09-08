@@ -11,10 +11,6 @@ from tools.args_reader import ArgsReader
 
 if __name__ == "__main__":
 
-    args_reader = ArgsReader()
-    # print(args_reader.type_data)
-    # print(args_reader.printer)
-
     path_settings= RelativePath.ENV_SETTINGS
     container = BinanceDataContainer(        
         binance_api_settings = YAMLReader(yaml_file= RelativePath.BINANCE_API_SETTINGS),
@@ -22,7 +18,7 @@ if __name__ == "__main__":
         binance_client = Client(),
         binance_data_application = BinanceDataApplication(),
         history = History(path_settings),
-        command_arguments = args_reader,
+        command_arguments = ArgsReader(),
         secrets_settings = YAMLReader(yaml_file= RelativePath.SECRETS)
     )
 
