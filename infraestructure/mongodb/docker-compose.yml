@@ -1,8 +1,6 @@
 version: '3.8'
-
 services:
-
-  mongo:
+  mongodb:
     image: mongo:latest
     restart: unless-stopped
     container_name: mongo-container
