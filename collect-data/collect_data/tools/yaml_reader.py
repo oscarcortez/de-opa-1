@@ -7,8 +7,8 @@ class YAMLReader:
     def __init__(self, yaml_file, environment = os_environment(), section = None):
 
         path = ''
-        if environment == 'production':
-            path = AbsolutePath.APP_PROD
+        if environment == 'development':
+            path = AbsolutePath.APP_DEV
         self.yaml_file = f'{path}{yaml_file}'
         self.section = section
 

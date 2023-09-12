@@ -6,7 +6,7 @@ class RelativePath:
     SECRETS = 'config/secrets.yaml'
 
 class AbsolutePath:
-    APP_PROD = '/home/oscar/git-repos/de-opa-1/collect-data/collect_data/'
+    APP_DEV = '/home/oscar/git-repos/de-opa-1/collect-data/collect_data/'
 
 class Section: 
     BINANCE = 'binance'
