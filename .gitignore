@@ -169,3 +169,5 @@ collect-data/collect_data/config/secrets.yaml
 collect-data/collect_data/data/*
 
 collect-data/collect_data/logs/history.csv
+
+collect-data/collect_data/config/local.settings.yaml
