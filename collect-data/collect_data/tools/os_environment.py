@@ -2,7 +2,7 @@ import os
 
 def os_environment():
     
-    return os.getenv('CRYPTOBOT_ENV', 'development')
+    return os.getenv('CRYPTOBOT_ENV', 'local')
 
 def os_login():
 
