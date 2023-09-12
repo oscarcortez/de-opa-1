@@ -1,0 +1,28 @@
+[tool.poetry]
+name = "collect-data"
+version = "0.1.0"
+description = ""
+authors = ["oscar-cortez-home <oscarkortez@gmail.com>"]
+readme = "README.md"
+packages = [{include = "collect_data"}]
+
+[tool.poetry.dependencies]
+python = "^3.11"
+pandas = "^2.0.3"
+binance = "^0.3"
+pyyaml = "^6.0.1"
+matplotlib = "^3.7.2"
+seaborn = "^0.12.2"
+requests = "^2.31.0"
+python-binance = "^1.0.19"
+sqlalchemy = "^2.0.20"
+psycopg2-binary = "^2.9.5"
+pymysql = "^1.1.0"
+pyloaders = "^0.0.5"
+pymongo = "^4.5.0"
+prettytable = "^3.8.0"
+
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"

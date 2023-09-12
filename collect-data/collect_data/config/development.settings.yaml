@@ -1,0 +1,36 @@
+postgres:
+  drivername: postgresql
+  username: postgres
+  password: 123456
+  host: localhost
+  port: 5432
+  database: opa_binance
+
+sqlite:
+  drivername: sqlite
+  database: ~/docker-volumes/sqlite/opa_binance.db
+
+mysql:
+  drivername: pymysql
+  username: user
+  password: 123456
+  host: 192.168.230.133
+  port: 3306
+  database: opa_binance
+
+mongodb:
+  drivername: mongodb
+  username: root
+  password: 123456
+  host: 192.168.230.128
+  database: opa_binance
+  port: 27017
+
+json:
+  path: ~/docker-volumes/json_files/
+
+csv:
+  path: ~/docker-volumes/csv_files/
+
+history:
+  path: /home/oscar/logs/de-opa-1/history.csv
