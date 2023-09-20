@@ -5,8 +5,6 @@ from api_client.binance_api_client import BinanceApiClient
 from container.binance_data_container import BinanceDataContainer
 from tools.history import History
 from binance import Client
-from tools.constants import Section
-from tools.command_line_arguments import CommandLineArguments
 from tools.args_reader import ArgsReader
 
 if __name__ == "__main__":
