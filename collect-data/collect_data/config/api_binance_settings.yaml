@@ -1,5 +1,5 @@
 # options interval: https://python-binance.readthedocs.io/en/latest/constants.html
-# options destination_source: csv, json, postgres, sqlite
+# options destination_source: csv, json, postgres, sqlite, mongodb
 
 binance:
   destination_source: postgres
