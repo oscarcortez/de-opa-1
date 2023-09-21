@@ -50,3 +50,7 @@ class DF:
     COL_9 = "taker_buy_base_asset_volume"
     COL_10 = "taker_buy_quote_asset_volume"
     COL_11 = "ignore"
+
+
+class txt:
+    CRYPTOBOT_BINANCE = 'tools/txt/cryptobot_binance.txt'

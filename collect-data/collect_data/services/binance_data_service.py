@@ -1,3 +1,4 @@
+# flake8: noqa
 from repositories.binance_data_mysql_repository import BinanceDataMysqlRepository
 from repositories.binance_data_postgres_repository import BinanceDataPostgresRepository
 from repositories.binance_data_sqlite_repository import BinanceDataSqliteRepository
