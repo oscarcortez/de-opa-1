@@ -1,5 +1,6 @@
 #from tools.yaml_reader import YAMLReader
-from collect_data.tools.constants import Section
+from tools.os_environment import os_environment
+from tools.constants import Section
 
 #client = Client(api_key, api_secret)
 section = Section.BINANCE
