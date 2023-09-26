@@ -3,11 +3,19 @@ import urllib.request, json
 import time
 import pandas as pd
 from binance import Client
-from tools.constant import Section
-from config.secrets import binance
+#from tools.yaml_reader import YAMLReader
+#from tools.constants import Section
+from cron.creds import binance
 
+#client = Client(api_key, api_secret)
 api_key = binance(api_key)
 print(api_key)
 
-#client = Client(api_key, api_secret)
+#secrets_settings= YAMLReader
+#secrets_settings = secrets_settings
 
+#credentials = secrets_settings.get_values(section = Section.BINANCE)
+#API_KEY = credentials['api_key']
+#API_SECRET = credentials['api_secret']
+
+#print(API_KEY)
