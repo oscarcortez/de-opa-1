@@ -1,21 +1,13 @@
 import schedule
 import urllib.request, json
-import test
 import time
+import pandas as pd
+from binance import Client
+from tools.constant import Section
+from config.secrets import binance
 
-def start():
-    schedule.every(3).seconds.do(job)
+api_key = binance(api_key)
+print(api_key)
 
-    while True:
-        schedule.run_pending()
-        time.sleep(1)
+#client = Client(api_key, api_secret)
 
-def job():
-    retrieve_all_binance_currencies()
-
-def retrieve_binance_currencies():
-    with urllib.request.urlopen("https://api.binance.com/api/v3/ticker/price") as url:
-        data = json.loads(url.read().decode())
-        db.save_all_data(data)
-
-start()
