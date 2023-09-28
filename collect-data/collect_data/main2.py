@@ -10,7 +10,8 @@ if __name__ == "__main__":
     container = BinanceDataUpdater(
         binance_api_client = BinanceApiClient(),
         binance_client = Client(),
-        secrets_settings = YAMLReader(yaml_file= RelativePath.SECRETS)
+        secrets_settings = YAMLReader(yaml_file= RelativePath.SECRETS),
+        binance_api_settings = YAMLReader(yaml_file=RelativePath.BINANCE_API_SETTINGS)
     )
 
     container.execute()
