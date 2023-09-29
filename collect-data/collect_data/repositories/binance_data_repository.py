@@ -1,10 +1,9 @@
-
 from abc import ABC, abstractmethod
 
-class BinanceDataRepository(ABC):
 
+class BinanceDataRepository(ABC):
     @abstractmethod
-    def set_table_name (self, table_name):
+    def set_table_name(self, table_name):
         pass
 
     @abstractmethod

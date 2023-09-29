@@ -6,4 +6,5 @@ def show_properties(cls):
         for key, value in properties.items():
             print(f"\t{key}: {value}")
         return instance
+
     return wrapper

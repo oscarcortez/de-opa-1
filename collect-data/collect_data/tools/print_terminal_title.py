@@ -1,27 +1,13 @@
-def print_terminal_title(show = True):
-    
-    result = ""
-    if show is True:
-        result = """    
-                        _        _           _     _     
-   ___ _ __ _   _ _ __ | |_ ___ | |__   ___ | |_  | |__ (_)_ __   __ _ _ __   ___ ___ 
-  / __| '__| | | | '_ \| __/ _ \| '_ \ / _ \| __| | '_ \| | '_ \ / _` | '_ \ / __/ _ \\
- | (__| |  | |_| | |_) | || (_) | |_) | (_) | |_  | |_) | | | | | (_| | | | | (_|  __/
-  \___|_|   \__, | .__/ \__\___/|_.__/ \___/ \__| |_.__/|_|_| |_|\__,_|_| |_|\___\___|
-            |___/|_|                                                                  
-        """
-    print( result )
+from tools.constants import txt
 
-def get_terminal_title(show = True):
-    
-    result = ""
+
+def print_terminal_title(show=True):
     if show is True:
-        result = """
-                        _        _           _     _     
-   ___ _ __ _   _ _ __ | |_ ___ | |__   ___ | |_  | |__ (_)_ __   __ _ _ __   ___ ___ 
-  / __| '__| | | | '_ \| __/ _ \| '_ \ / _ \| __| | '_ \| | '_ \ / _` | '_ \ / __/ _ \\
- | (__| |  | |_| | |_) | || (_) | |_) | (_) | |_  | |_) | | | | | (_| | | | | (_|  __/
-  \___|_|   \__, | .__/ \__\___/|_.__/ \___/ \__| |_.__/|_|_| |_|\__,_|_| |_|\___\___|
-            |___/|_|                                                                  
-        """
-    return result
+        print(get_terminal_title(show))
+
+
+def get_terminal_title(show=True):
+    with open(txt.CRYPTOBOT_BINANCE, "r") as file:
+        content = file.read()
+    if show is True:
+        return content
