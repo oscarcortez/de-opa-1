@@ -123,3 +123,4 @@ historical_data,2023-09-22 18:43:41,2227,local,postgres,BTCUSDT
 streaming_data,2023-09-22 18:46:36,1127,local,postgres,BTCUSDT
 streaming_data,2023-09-27 07:06:30,427,local,postgres,BTCUSDT
 streaming_data,2023-09-28 08:04:05,485,local,postgres,BTCUSDT
+historical_data,2023-09-29 15:51:34,2234,local,postgres,BTCUSDT
