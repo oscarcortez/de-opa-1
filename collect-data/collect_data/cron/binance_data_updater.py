@@ -6,7 +6,6 @@ from tools.constants import Section
 from api_client.binance_api_client import BinanceApiClient
 from DB.sql_connections.postgres_connection import postgres_url_connection
 from sqlalchemy import create_engine, inspect
-import pandas as pd
 import datetime
 
 class BinanceDataUpdater:
@@ -37,6 +36,9 @@ class BinanceDataUpdater:
         self.type_data = 'binance_streaming_update'
         self.type_data_params = self.binance_api_settings.get_values(self.type_data)
 
+    def check_last_date(self):
+        pass
+
     def build_binance_api_client(self):
         
         
@@ -49,7 +51,6 @@ class BinanceDataUpdater:
     def get_dataframe_from_api_client(self):
         
         self.dataframe = self.binance_api_client.get_dataframe()
-
 
     def append_to_dataframe(self):
         self.engine = create_engine(url= postgres_url_connection())
@@ -66,7 +67,8 @@ class BinanceDataUpdater:
     def show_in_terminal(self):
         print(datetime.datetime.now())
         print('Amount of currencies: ' + str(len(self.dataframe)))
-        print('BTC Price of', self.dataframe['close_price'][0], "was inserted.")
+        print('Last BTC Price of', self.dataframe['close_price'][0], "was inserted.")
+
         
 
     def execute_application(self):
@@ -81,9 +83,4 @@ class BinanceDataUpdater:
 
     def execute(self):
         self.execute_application()
-
-
-
-
-
     
