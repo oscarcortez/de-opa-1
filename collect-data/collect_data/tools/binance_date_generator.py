@@ -17,6 +17,8 @@ class BinanceDateGenerator:
     def get_start(self):
         if self.type_data == Binance.HISTORICAL_DATA:
             return "1 Jan, 1990"
+        elif self.type_data == Binance.STREAMING_UPDATE:
+            return "1 minute ago UTC"
         else:
             return self.get_midnight_today()
 

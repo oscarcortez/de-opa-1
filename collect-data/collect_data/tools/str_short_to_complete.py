@@ -2,8 +2,10 @@ def str_short_to_complete(value):
     result = {
         "streaming": "binance_streaming_data",
         "historical": "binance_historical_data",
+        "update": "binance_streaming_update",
         "binance_streaming_data": "binance_streaming_data",
         "binance_historical_data": "binance_historical_data",
+        "binance_streaming_update": "binance_streaming_update",
         "csv": "BinanceDataCsvRepository",
         "json": "BinanceDataJsonRepository",
         "mongodb": "BinanceDataMongodbRepository",
