@@ -10,12 +10,14 @@ from api_client.binance_api_client import BinanceApiClient
 import schedule
 import time
 
+
 def start():
     schedule.every(60).seconds.do(job)
 
     while True:
         schedule.run_pending()
         time.sleep(1)
+
 
 def job():
 
@@ -33,5 +35,5 @@ def job():
 
         container.execute()
 
-start()
 
+start()

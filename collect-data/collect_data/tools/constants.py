@@ -28,10 +28,11 @@ class DB:
 
 
 class Binance:
-    HISTORICAL_DATA= 'binance_historical_data'
-    STREAMING_DATA= 'binance_streaming_data'
-    STREAMING_UPDATE= 'binance_streaming_update'
+    HISTORICAL_DATA = 'binance_historical_data'
+    STREAMING_DATA = 'binance_streaming_data'
+    STREAMING_UPDATE = 'binance_streaming_update'
     NAME = 'binance'
+
 
 class Constants:
     pass

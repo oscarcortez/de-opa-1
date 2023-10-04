@@ -50,11 +50,10 @@ class BinanceDataContainer:
 
     def get_common_params(self):
         self.common_params = self.binance_api_settings.get_values(Binance.NAME)
-        #binance
 
     def get_type_data_params(self):
-        self.type_data_params = self.binance_api_settings.get_values(self.type_data)
-        #binance-streaming_data
+        self.type_data_params = self.binance_api_settings.get_values(
+            self.type_data)
 
     def get_range_dates(self):
         bdg = BinanceDateGenerator(self.type_data)
@@ -64,39 +63,38 @@ class BinanceDataContainer:
     def build_binance_api_client(self):
         self.binance_api_client.client = self.binance_client
         self.binance_api_client.symbol = self.common_params["symbol"]
-        #BTCUSDT
         self.binance_api_client.interval = self.type_data_params["interval"]
         self.binance_api_client.start = self.start_range
         self.binance_api_client.end = self.end_range
 
     def build_binance_data_application(self):
-        self.binance_data_application.table_name = self.type_data_params["table_name"]
-        #streaming_data
+        self.binance_data_application.table_name = self.type_data_params[
+            "table_name"]
         self.binance_data_application.destination_source = str_complete(
             self.common_params["destination_source"]
-            #postgres
         )
         self.binance_data_application.set_binance_data_repository()
 
     def get_dataframe_from_api_client(self):
-        if self.binance_data_application.exists() == True:
+        if self.binance_data_application.exists():
             self.dataframe = self.binance_api_client.last_data_to_dataframe()
-        else:           
+        else:
             self.dataframe = self.binance_api_client.get_dataframe()
-        #create dataframe
-
 
     def save_data(self):
         self.binance_data_application.load_from_dataframe(self.dataframe)
-        #überspeichern der Werte in der Postgres database
-
-    
 
     def show_details(self):
         print_terminal_title(show=string_to_bool(self.is_terminal_execution))
 
     def show_pretty_history(self):
-        titles = ["Type Data", "Date", "Rows", "Evironment", "Destination", "Symbol"]
+        titles = [
+            "Type Data",
+            "Date",
+            "Rows",
+            "Evironment",
+            "Destination",
+            "Symbol"]
         values = [
             self.type_data_params["table_name"],
             datetime.now().strftime("%Y-%m-%d %H:%M:%S"),
