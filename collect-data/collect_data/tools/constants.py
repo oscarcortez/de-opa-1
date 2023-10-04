@@ -3,7 +3,7 @@ from tools.os_environment import os_environment
 
 class RelativePath:
     BINANCE_API_SETTINGS = "config/api_binance_settings.yaml"
-    ENV_SETTINGS = f"config/{os_environment()}.settings.yaml"
+    ENV_SETTINGS = f"config/{os_environment()}_settings.yaml"
     SECRETS = "config/secrets.yaml"
 
 
