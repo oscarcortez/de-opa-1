@@ -66,3 +66,7 @@ class BinanceApiClient:
             self.format_df_values()
 
         return self.df_data
+    
+    def last_data_to_dataframe(self):
+        self.get_dataframe()
+        return self.df_data.iloc[[-1]]
