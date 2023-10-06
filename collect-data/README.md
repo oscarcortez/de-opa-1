@@ -16,6 +16,3 @@ poetry run python3 main.py --type_data streaming --printer true
 
 poetry run main.py
 
-### For updating streaming data
-
-poetry run python3 cron_main.py --type_data update --printer true
