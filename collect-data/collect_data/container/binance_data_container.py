@@ -76,7 +76,7 @@ class BinanceDataContainer:
         self.binance_data_application.set_binance_data_repository()
 
     def get_dataframe_from_api_client(self):
-        if self.binance_data_application.exists():
+        if self.binance_data_application.exists() and self.type_data == 'binance_streaming_data':
             self.dataframe = self.binance_api_client.last_data_to_dataframe()
         else:
             self.dataframe = self.binance_api_client.get_dataframe()
