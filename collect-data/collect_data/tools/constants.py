@@ -3,7 +3,7 @@ from tools.os_environment import os_environment
 
 class RelativePath:
     BINANCE_API_SETTINGS = "config/api_binance_settings.yaml"
-    ENV_SETTINGS = f"config/{os_environment()}.settings.yaml"
+    ENV_SETTINGS = f"config/{os_environment()}_settings.yaml"
     SECRETS = "config/secrets.yaml"
 
 
@@ -28,9 +28,10 @@ class DB:
 
 
 class Binance:
-    HISTORICAL_DATA = "binance_historical_data"
-    STREAMING_DATA = "binance_streaming_data"
-    NAME = "binance"
+    HISTORICAL_DATA = 'binance_historical_data'
+    STREAMING_DATA = 'binance_streaming_data'
+    STREAMING_UPDATE = 'binance_streaming_update'
+    NAME = 'binance'
 
 
 class Constants:

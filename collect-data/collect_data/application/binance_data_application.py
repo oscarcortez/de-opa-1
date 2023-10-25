@@ -26,9 +26,18 @@ class BinanceDataApplication:
         self.binance_data_service = BinanceDataService(binance_data_repository)
 
     def load_from_dataframe(self, df_binance):
-        self.binance_data_service.load_from_dataframe(
-            df_data=df_binance, table_name=self.table_name
-        )
+        if self.binance_data_service.exists() == True:
+        
+            self.binance_data_service.add_df(
+                df_data=df_binance
+            )
+        else:
+            self.binance_data_service.load_from_dataframe(
+                df_data=df_binance, table_name=self.table_name
+            )
+    
+    def update_dataframe(self, df):
+        pass
 
     def exists(self):
         return self.binance_data_service.exists()

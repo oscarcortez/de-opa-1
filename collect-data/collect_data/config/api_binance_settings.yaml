@@ -16,3 +16,9 @@ binance_streaming_data:
   interval: 1m
   start: 1 day ago UTC
   end: null
+
+binance_streaming_update:
+  table_name: streaming_data
+  interval: 1m
+  start: 1 minute ago UTC
+  end: null
