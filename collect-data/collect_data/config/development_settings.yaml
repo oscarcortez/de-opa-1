@@ -22,7 +22,7 @@ mongodb:
   drivername: mongodb
   username: root
   password: 123456
-  host: 192.168.230.128
+  host: localhost
   database: opa_binance
   port: 27017
 
