@@ -7,7 +7,7 @@ class BinanceDataMongodbRepository(BinanceDataRepository):
     def __init__(self, repository=None, table_name=None):
         self.repository = repository
         self.table_name = table_name
-        self.collection = mongo_db[table_name]
+        self.collection = mongo_db[self.table_name]
 
     def set_table_name(self, table_name):
         self.table_name = table_name
