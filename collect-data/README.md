@@ -16,3 +16,6 @@ poetry run python3 main.py --type_data streaming --printer true
 
 poetry run main.py
 
+### For FASTAPI 
+go to de-opa1/collect-data and run docker-compose up -d
+Fastapi then running on: http://localhost:8000/docs

@@ -13,20 +13,19 @@ services:
     volumes:
       - local_pgdata:/var/lib/postgresql/data
 
-  fastpapi:
-    build: 
-      context: ./../../collect-data/app
-      dockerfile: ./../../collect-data/Dockerfile
-    container_name: fastapi
-    restart: unless-stopped
-    ports:
-      - "8002:8002"
-    depends_on:
-      - db
-    volumes:
-      - .:/app
-    command: poetry run uvicorn ./../../collect-data/app/main_postgres:api --reload --host localhost --port 8002
-    #command: uvicorn /app/main_postgres:api --reload --host localhost --port 8002
+  #fastpapi:
+    #build: 
+      #context: ./../../collect-data/collect_data
+      #dockerfile: ./../../collect-data/Dockerfile
+    #container_name: fastapi
+    #restart: unless-stopped
+    #ports:
+      #- "8000:8000"
+    #depends_on:
+      #- db
+    #volumes:
+      #- .:./../../collect-data/app
+    #command: poetry run uvicorn ./../../collect-data/app/main_postgres:api --reload --host localhost
 
 
 volumes:
