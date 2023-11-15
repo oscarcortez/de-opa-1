@@ -1,36 +1,29 @@
 from fastapi import FastAPI
 from sqlalchemy import create_engine
-
-
-
+from sqlalchemy.orm import sessionmaker
+from sqlalchemy.sql import text
 
 api = FastAPI(
     title="Kryptobot",
-    description="My own API powered by FastAPI.",
+    description="My own API powered by FastAPI",
     version="1.0.6")
-
-url = "postgresql://postgres:123456@localhost:5432/opa_binance"
-
-engine = create_engine(url)
-connection = engine.connect()
-
-
 
 @api.get("/content")
 async def show_content():
-    connection.execute("SELECT * FROM streaming_data")
-    users = connection.fetchall()
-    return {"users": users}
+    url = "postgresql://postgres:123456@db/opa_binance"
 
-connection.close()
+    engine = create_engine(
+        url,
+        pool_pre_ping=True,
+    )
+    SessionLocal = sessionmaker(
+        autocommit=False,
+        autoflush=False,
+        bind=engine
+    )
 
-# @api.get("/")
-# async def root():
-#  return {"greeting":"Hello world"}
-
-
-
-
-
-
-
+    try:
+        db = SessionLocal()
+        return db.execute(text("SELECT * FROM streaming_data")).scalar()
+    except Exception as e:
+        raise e
