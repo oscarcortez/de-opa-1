@@ -1,11 +1,46 @@
 version: "3.9"
 
 services:
-  configuration_service:
-    container_name: opa-binance
-    restart: always
-    build:
-      context: .
-      dockerfile: ./Dockerfile
+  db:
+    image: postgres
+    container_name: local_pgdb
+    restart: unless-stopped
     ports:
-      - 3210:3210
+      - "5432:5432"
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: 123456
+      POSTGRES_DB: opa_binance
+    volumes:
+      - local_pgdata:/var/lib/postgresql/data
+
+  mongodb:
+    image: mongo:latest
+    restart: unless-stopped
+    container_name: mongo-container
+    hostname: host-mongo
+    environment:
+      MONGO_INITDB_ROOT_USERNAME: root
+      MONGO_INITDB_ROOT_PASSWORD: 123456
+    volumes:
+      - ~/docker-volumes/mongodb:/data/db
+      - ~/docker-volumes/mongodb/log:/var/log/mongodb/
+    ports:
+      - "27017:27017"
+
+  fastpapi:
+    build: 
+      context: .
+      dockerfile: Dockerfile
+    container_name: fastapi
+    restart: unless-stopped
+    ports:
+      - "8000:8000"
+    volumes:
+      - .:/collect_data/app
+    depends_on:
+      - db
+    command: poetry run uvicorn collect_data.app.fastapi:api --reload --host 0.0.0.0
+
+volumes:
+  local_pgdata:   
