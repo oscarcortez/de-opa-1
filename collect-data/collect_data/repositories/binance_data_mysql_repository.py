@@ -1,5 +1,5 @@
-from repositories.binance_data_repository import BinanceDataRepository
-from DB.sql_connections.mysql_connection import mysql_url_connection
+from ..repositories.binance_data_repository import BinanceDataRepository
+from ..DB.sql_connections.mysql_connection import mysql_url_connection
 from sqlalchemy import create_engine, inspect
 import pandas as pd
 
@@ -32,3 +32,6 @@ class BinanceDataMysqlRepository(BinanceDataRepository):
         result = self.table_name in inspect(self.engine).get_table_names()
         self.engine.dispose()
         return result
+
+    def find_all(self):
+        return super().find_all()
