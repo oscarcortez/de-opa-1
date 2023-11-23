@@ -40,7 +40,7 @@ services:
       - .:/collect_data/app
     depends_on:
       - db
-    command: poetry run uvicorn collect_data.app.fastapi:api --reload --host 0.0.0.0
+    command: poetry run uvicorn collect_data.app.main:app --reload --host 0.0.0.0
 
 volumes:
   local_pgdata:   

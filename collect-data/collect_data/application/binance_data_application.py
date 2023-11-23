@@ -1,5 +1,5 @@
 # flake8: noqa
-from services.binance_data_service import BinanceDataService
+from ..services.binance_data_service import BinanceDataService
 from repositories.binance_data_mysql_repository import BinanceDataMysqlRepository
 from repositories.binance_data_postgres_repository import BinanceDataPostgresRepository
 from repositories.binance_data_sqlite_repository import BinanceDataSqliteRepository
@@ -41,3 +41,6 @@ class BinanceDataApplication:
 
     def exists(self):
         return self.binance_data_service.exists()
+
+    def find_all(self):
+        return self.binance_data_service.find_all()

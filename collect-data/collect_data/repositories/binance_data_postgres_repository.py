@@ -1,5 +1,5 @@
-from repositories.binance_data_repository import BinanceDataRepository
-from DB.sql_connections.postgres_connection import postgres_url_connection
+from .binance_data_repository import BinanceDataRepository
+from ..DB.sql_connections.postgres_connection import postgres_url_connection
 from sqlalchemy import create_engine, inspect
 import pandas as pd
 
@@ -33,3 +33,8 @@ class BinanceDataPostgresRepository(BinanceDataRepository):
         result = self.table_name in inspect(self.engine).get_table_names()
         self.engine.dispose()
         return result
+
+    def find_all(self):
+        df = pd.read_sql_table(self.table_name, self.engine)
+        self.engine.dispose()
+        return df
