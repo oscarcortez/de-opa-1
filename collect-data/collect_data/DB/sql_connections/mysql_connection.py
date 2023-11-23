@@ -1,6 +1,6 @@
 from sqlalchemy.engine import URL
-from tools.yaml_reader import YAMLReader
-from tools.constants import RelativePath, DB
+from ...tools.yaml_reader import YAMLReader
+from ...tools.constants import RelativePath, DB
 
 
 def mysql_url_connection():
@@ -16,3 +16,4 @@ def mysql_url_connection():
     )
 
     return url
+

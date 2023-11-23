@@ -1,4 +1,4 @@
-from tools.os_environment import os_environment
+from ..tools.os_environment import os_environment
 
 
 class RelativePath:

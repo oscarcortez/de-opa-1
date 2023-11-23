@@ -52,8 +52,7 @@ class BinanceDataContainer:
         self.common_params = self.binance_api_settings.get_values(Binance.NAME)
 
     def get_type_data_params(self):
-        self.type_data_params = self.binance_api_settings.get_values(
-            self.type_data)
+        self.type_data_params = self.binance_api_settings.get_values(self.type_data)
 
     def get_range_dates(self):
         bdg = BinanceDateGenerator(self.type_data)
@@ -68,15 +67,18 @@ class BinanceDataContainer:
         self.binance_api_client.end = self.end_range
 
     def build_binance_data_application(self):
-        self.binance_data_application.table_name = self.type_data_params[
-            "table_name"]
+        self.binance_data_application.table_name = \
+            self.type_data_params["table_name"]
         self.binance_data_application.destination_source = str_complete(
             self.common_params["destination_source"]
         )
         self.binance_data_application.set_binance_data_repository()
 
     def get_dataframe_from_api_client(self):
-        if self.binance_data_application.exists() and self.type_data == 'binance_streaming_data':
+        if (
+            self.binance_data_application.exists()
+            and self.type_data == "binance_streaming_data"
+        ):
             self.dataframe = self.binance_api_client.last_data_to_dataframe()
         else:
             self.dataframe = self.binance_api_client.get_dataframe()
@@ -88,13 +90,12 @@ class BinanceDataContainer:
         print_terminal_title(show=string_to_bool(self.is_terminal_execution))
 
     def show_pretty_history(self):
-        titles = [
-            "Type Data",
-            "Date",
-            "Rows",
-            "Evironment",
-            "Destination",
-            "Symbol"]
+        titles = ["Type Data",
+                  "Date",
+                  "Rows",
+                  "Evironment",
+                  "Destination",
+                  "Symbol"]
         values = [
             self.type_data_params["table_name"],
             datetime.now().strftime("%Y-%m-%d %H:%M:%S"),
