@@ -19,7 +19,11 @@ class BinanceDataPostgresRepository(BinanceDataRepository):
         self.engine.dispose()
 
     def add_df(self, df_new: pd.DataFrame):
-        df_new.to_sql(self.table_name, self.engine, if_exists="append", index=False)
+        df_new.to_sql(
+            self.table_name,
+            self.engine,
+            if_exists="append",
+            index=False)
         self.engine.dispose()
 
     def exists(self):
@@ -28,11 +32,9 @@ class BinanceDataPostgresRepository(BinanceDataRepository):
         return result
 
     def find_all(self):
-        print("LUCO table_name: ", self.table_name)
-        print("LUCO engine: ", self.engine)
-        # df = pd.read_sql_table(self.table_name, self.engine)
         df = pd.read_sql_table("streaming_data", self.engine)
         df["open_time"] = df["open_time"].dt.strftime("%Y-%m-%dT%H:%M:%S.%fZ")
-        df["close_time"] = df["close_time"].dt.strftime("%Y-%m-%dT%H:%M:%S.%fZ")
+        df["close_time"] = \
+            df["close_time"].dt.strftime("%Y-%m-%dT%H:%M:%S.%fZ")
         self.engine.dispose()
         return df

@@ -52,7 +52,8 @@ class BinanceDataContainer:
         self.common_params = self.binance_api_settings.get_values(Binance.NAME)
 
     def get_type_data_params(self):
-        self.type_data_params = self.binance_api_settings.get_values(self.type_data)
+        self.type_data_params = \
+            self.binance_api_settings.get_values(self.type_data)
 
     def get_range_dates(self):
         bdg = BinanceDateGenerator(self.type_data)

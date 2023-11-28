@@ -3,7 +3,7 @@ from tools.yaml_reader import YAMLReader
 from tools.constants import DB, RelativePath
 
 dyg = YAMLReader(yaml_file=RelativePath.ENV_SETTINGS)
-#dyg = YAMLReader(yaml_file="../config/local_settings.yaml")
+
 params = dyg.get_values(section=DB.MONGODB)
 
 MONGO_HOST = params["host"]
