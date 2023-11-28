@@ -1,5 +1,5 @@
-from .binance_data_repository import BinanceDataRepository
-from ..DB.mongodb_connection import mongo_db
+from repositories.binance_data_repository import BinanceDataRepository
+from DB.mongodb_connection import mongo_db
 import pandas as pd
 
 

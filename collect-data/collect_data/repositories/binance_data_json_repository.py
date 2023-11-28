@@ -1,6 +1,6 @@
-from .binance_data_repository import BinanceDataRepository
-from ..tools.constants import RelativePath, File
-from ..tools.yaml_reader import YAMLReader
+from repositories.binance_data_repository  import BinanceDataRepository
+from tools.constants import RelativePath, File
+from tools.yaml_reader import YAMLReader
 import pandas as pd
 import os
 

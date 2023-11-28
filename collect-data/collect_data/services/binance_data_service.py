@@ -1,11 +1,11 @@
 # flake8: noqa
-from ..repositories.binance_data_mysql_repository import BinanceDataMysqlRepository
-from ..repositories.binance_data_postgres_repository import BinanceDataPostgresRepository
-from ..repositories.binance_data_sqlite_repository import BinanceDataSqliteRepository
-from ..repositories.binance_data_mongodb_repository import BinanceDataMongodbRepository
-from ..repositories.binance_data_json_repository import BinanceDataJsonRepository
-from ..repositories.binance_data_csv_repository import BinanceDataCsvRepository
-from ..repositories.binance_data_repository import BinanceDataRepository
+from repositories.binance_data_mysql_repository import BinanceDataMysqlRepository
+from repositories.binance_data_postgres_repository import BinanceDataPostgresRepository
+from repositories.binance_data_sqlite_repository import BinanceDataSqliteRepository
+from repositories.binance_data_mongodb_repository import BinanceDataMongodbRepository
+from repositories.binance_data_json_repository import BinanceDataJsonRepository
+from repositories.binance_data_csv_repository import BinanceDataCsvRepository
+from repositories.binance_data_repository import BinanceDataRepository
 
 
 class BinanceDataService:

@@ -1,6 +1,6 @@
 from sqlalchemy.engine import URL
-from ...tools.yaml_reader import YAMLReader
-from ...tools.constants import RelativePath, DB
+from tools.yaml_reader import YAMLReader
+from tools.constants import RelativePath, DB
 
 
 def sqlite_url_connection():

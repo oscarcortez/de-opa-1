@@ -1,6 +1,6 @@
 import yaml
-from ..tools.constants import AbsolutePath
-from ..tools.os_environment import os_environment
+from tools.constants import AbsolutePath
+from tools.os_environment import os_environment
 
 
 class YAMLReader:

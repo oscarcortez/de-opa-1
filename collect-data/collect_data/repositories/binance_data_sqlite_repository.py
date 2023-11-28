@@ -1,5 +1,5 @@
-from .binance_data_repository import BinanceDataRepository
-from ..DB.sql_connections.sqlite_connection import sqlite_url_connection
+from repositories.binance_data_repository import BinanceDataRepository
+from DB.sql_connections.sqlite_connection import sqlite_url_connection
 from sqlalchemy import create_engine, inspect
 import pandas as pd
 
