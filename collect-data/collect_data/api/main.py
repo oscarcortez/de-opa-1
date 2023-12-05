@@ -9,6 +9,8 @@ api.version = "1.0.0"
 api.include_router(StreamingRouter)
 
 
-@api.get('/', tags=['home'])
+@api.get("/", tags=["home"])
 def default():
-    return HTMLResponse(content='<h1>API is running</h1>', status_code=200)
+    return HTMLResponse(
+        content="<h1>API is running from /api</h1>",
+        status_code=200)
