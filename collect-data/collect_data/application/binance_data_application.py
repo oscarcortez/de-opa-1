@@ -42,5 +42,5 @@ class BinanceDataApplication:
     def exists(self):
         return self.binance_data_service.exists()
 
-    def find_all(self):
+    def find_all(self):        
         return self.binance_data_service.find_all()

@@ -32,7 +32,7 @@ class BinanceDataPostgresRepository(BinanceDataRepository):
         return result
 
     def find_all(self):
-        df = pd.read_sql_table("streaming_data", self.engine)
+        df = pd.read_sql_table(self.table_name, self.engine)
         df["open_time"] = df["open_time"].dt.strftime("%Y-%m-%dT%H:%M:%S.%fZ")
         df["close_time"] = \
             df["close_time"].dt.strftime("%Y-%m-%dT%H:%M:%S.%fZ")

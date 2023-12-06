@@ -19,8 +19,11 @@ class BinanceDataService:
     def add_df(self, df_data):
         self.repository.add_df(df_new=df_data)
 
-    def exists(self):
-        return self.repository.exists()
+    def set_table_name(self, table_name):
+        self.repository.set_table_name(table_name)
 
-    def find_all(self):
+    def exists(self):
+        return self.repository.exists()    
+
+    def find_all(self):     
         return self.repository.find_all()
