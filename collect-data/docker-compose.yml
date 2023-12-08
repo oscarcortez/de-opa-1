@@ -37,10 +37,11 @@ services:
     ports:
       - "8000:8000"
     volumes:
-      - .:/collect_data/app
+      - .:/collect_data/api
     depends_on:
       - db
-    command: poetry run uvicorn collect_data.app.main:app --reload --host 0.0.0.0
+    command: poetry run uvicorn api.main:api --reload --host 0.0.0.0
+
 
 volumes:
   local_pgdata:   
