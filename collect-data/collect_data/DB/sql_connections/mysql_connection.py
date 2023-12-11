@@ -16,3 +16,4 @@ def mysql_url_connection():
     )
 
     return url
+

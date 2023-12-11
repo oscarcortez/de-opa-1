@@ -1,4 +1,4 @@
-from repositories.binance_data_repository import BinanceDataRepository
+from repositories.binance_data_repository  import BinanceDataRepository
 from tools.constants import File, RelativePath
 from tools.yaml_reader import YAMLReader
 import pandas as pd
@@ -26,3 +26,6 @@ class BinanceDataCsvRepository(BinanceDataRepository):
 
     def exists(self):
         return os.path.isfile(f"{self.path}{self.table_name}.{File.CSV}")
+
+    def find_all(self):
+        return super().find_all()

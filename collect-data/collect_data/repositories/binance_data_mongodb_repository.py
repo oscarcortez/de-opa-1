@@ -24,3 +24,7 @@ class BinanceDataMongodbRepository(BinanceDataRepository):
     def exists(self):
         result = self.table_name in mongo_db.list_collection_names()
         return result
+
+    def find_all(self):
+        df = pd.DataFrame(list(self.collection.find()))
+        return df

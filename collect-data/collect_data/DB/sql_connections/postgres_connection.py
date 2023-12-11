@@ -16,3 +16,4 @@ def postgres_url_connection():
     )
 
     return url
+

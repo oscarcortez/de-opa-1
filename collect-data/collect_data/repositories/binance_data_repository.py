@@ -17,3 +17,7 @@ class BinanceDataRepository(ABC):
     @abstractmethod
     def exists(self):
         pass
+
+    @abstractmethod
+    def find_all(self):
+        pass

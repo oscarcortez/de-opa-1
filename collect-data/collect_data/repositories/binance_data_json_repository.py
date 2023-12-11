@@ -1,4 +1,4 @@
-from repositories.binance_data_repository import BinanceDataRepository
+from repositories.binance_data_repository  import BinanceDataRepository
 from tools.constants import RelativePath, File
 from tools.yaml_reader import YAMLReader
 import pandas as pd
@@ -35,3 +35,6 @@ class BinanceDataJsonRepository(BinanceDataRepository):
             os.path.isfile(f"{self.path}{self.table_name}.{File.JSON}"),
         )
         return os.path.isfile(f"{self.path}{self.table_name}.{File.JSON}")
+
+    def find_all(self):
+        return super().find_all()

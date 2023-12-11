@@ -32,3 +32,6 @@ class BinanceDataMysqlRepository(BinanceDataRepository):
         result = self.table_name in inspect(self.engine).get_table_names()
         self.engine.dispose()
         return result
+
+    def find_all(self):
+        return super().find_all()

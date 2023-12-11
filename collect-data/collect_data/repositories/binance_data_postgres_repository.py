@@ -14,10 +14,7 @@ class BinanceDataPostgresRepository(BinanceDataRepository):
 
     def load_from_dataframe(self, df_data: pd.DataFrame):
         df_data.to_sql(
-            self.table_name,
-            con=self.engine,
-            index=False,
-            if_exists="replace"
+            self.table_name, con=self.engine, index=False, if_exists="replace"
         )
         self.engine.dispose()
 
@@ -33,3 +30,11 @@ class BinanceDataPostgresRepository(BinanceDataRepository):
         result = self.table_name in inspect(self.engine).get_table_names()
         self.engine.dispose()
         return result
+
+    def find_all(self):
+        df = pd.read_sql_table(self.table_name, self.engine)
+        df["open_time"] = df["open_time"].dt.strftime("%Y-%m-%dT%H:%M:%S.%fZ")
+        df["close_time"] = \
+            df["close_time"].dt.strftime("%Y-%m-%dT%H:%M:%S.%fZ")
+        self.engine.dispose()
+        return df

@@ -34,6 +34,11 @@ class Binance:
     NAME = 'binance'
 
 
+class Table:
+    HISTORICAL_DATA = 'historical_data'
+    STREAMING_DATA = 'streaming_data'
+
+
 class Constants:
     pass
 
