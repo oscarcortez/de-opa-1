@@ -58,6 +58,8 @@ services:
     depends_on:
       - fastapi
     command: poetry run python3 dash/main.py
+    environment:
+      - CRYPTOBOT_ENV=docker
 
 volumes:
   local_pgdata:

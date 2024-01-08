@@ -207,3 +207,6 @@ streaming_data,2024-01-08 10:07:24,1,local,postgres,BTCUSDT
 historical_data,2024-01-08 10:07:44,2335,local,postgres,BTCUSDT
 historical_data,2024-01-08 10:09:05,2335,local,postgres,BTCUSDT
 streaming_data,2024-01-08 10:09:58,610,local,postgres,BTCUSDT
+streaming_data,2024-01-08 15:43:17,1,local,postgres,BTCUSDT
+streaming_data,2024-01-08 15:45:29,946,local,postgres,BTCUSDT
+historical_data,2024-01-08 15:45:42,2335,local,postgres,BTCUSDT

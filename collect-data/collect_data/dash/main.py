@@ -8,8 +8,8 @@ from dash import dash_table
 from plotly.subplots import make_subplots
 import requests
 
-response1 = requests.get('http://fastapi:8000/streaming/', headers={'accept': 'application/json'})
-response2 = requests.get('http://fastapi:8000/historical/', headers={'accept': 'application/json'})
+response1 = requests.get('http://fastapi:8000/streaming/?start=1&end=946', headers={'accept': 'application/json'})
+response2 = requests.get('http://fastapi:8000/historical/?start=1&end=2335', headers={'accept': 'application/json'})
 data1 = response1.json()
 data2 = response2.json()
 df_streaming = pd.DataFrame(data1['data'])
