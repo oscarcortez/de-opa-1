@@ -29,7 +29,7 @@ services:
       - "27017:27017"
 
   fastapi:
-    build: 
+    build:
       context: .
       dockerfile: Dockerfile_Fastapi
     container_name: fastapi
@@ -40,17 +40,19 @@ services:
       - .:/collect_data/api
     depends_on:
       - db
-    command: poetry run uvicorn api.main:api --reload --host 0.0.0.0
-
+    command: >
+      poetry run uvicorn api.main:api --reload --host 0.0.0.0
+    environment:
+      - CRYPTOBOT_ENV=docker
 
   dash:
-    build: 
+    build:
       context: .
       dockerfile: Dockerfile_Dash
     container_name: dash
     restart: unless-stopped
     ports:
-      - "8050:8050"  # Adjust the port numbers as needed
+      - "8050:8050" # Adjust the port numbers as needed
     volumes:
       - .:/collect_data/dash # Replace <your_dash_volume> and /path/in/container with appropriate volume information
     depends_on:
@@ -58,4 +60,4 @@ services:
     command: poetry run python3 dash/main.py
 
 volumes:
-  local_pgdata:   
+  local_pgdata:
