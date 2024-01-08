@@ -11,7 +11,7 @@ if __name__ == "__main__":
     container = BinanceDataContainer(
         binance_api_settings=YAMLReader(RelativePath.BINANCE_API_SETTINGS),
         binance_api_client=BinanceApiClient(),
-        binance_client=Client(),
+        binance_client=Client(tld='us'),
         binance_data_application=BinanceDataApplication(),
         history=History(RelativePath.ENV_SETTINGS),
         command_arguments=ArgsReader(),
