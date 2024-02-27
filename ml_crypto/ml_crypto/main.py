@@ -3,8 +3,6 @@ import numpy as np
 from sklearn.preprocessing import MinMaxScaler
 from tensorflow.keras.models import Sequential
 from tensorflow.keras.layers import LSTM, Dense
-#from tensorflow.keras.models import Sequential
-# from tensorflow.keras.layers import LSTM, Dense
 import matplotlib.pyplot as plt
 
 df = pd.read_csv('df.csv')
@@ -59,6 +57,18 @@ train_predict_plot[time_steps:len(train_predict)+time_steps, :] = train_predict
 test_predict_plot = np.empty_like(df_scaled)
 test_predict_plot[:, :] = np.nan
 test_predict_plot[len(train_predict)+(time_steps*2)+1:len(df_scaled)-1, :] = test_predict
+
+data = scaler.inverse_transform(df_scaled)
+df_observed = pd.DataFrame(data)
+df_observed.to_csv('observed.csv', index=False)
+
+data = train_predict_plot
+df_training = pd.DataFrame(data)
+df_training.to_csv('training.csv', index=False)
+
+data = test_predict_plot
+df_test = pd.DataFrame(data)
+df_test.to_csv('test.csv', index=False)
 
 plt.figure(figsize=(20, 10))
 plt.plot(scaler.inverse_transform(df_scaled), label='Observed')
