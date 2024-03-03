@@ -32,10 +32,10 @@ def get_data():
     data2 = response2.json()
     df_streaming = pd.DataFrame(data1['data'])
     df_historical = pd.DataFrame(data2['data'])
-    df_streaming['open_time'] = pd.to_datetime(df_streaming['open_time'])
-    df_historical['open_time'] = pd.to_datetime(df_historical['open_time'])
-    fig1 = px.line(df_streaming, x='open_time', y='close_price', title='Streaming Data Bitcoin')
-    fig2 = px.line(df_historical, x='open_time', y='close_price', title='Historical Data Bitcoin')
+    df_streaming['open_time'] = pd.to_datetime(df_streaming['close_time'])
+    df_historical['open_time'] = pd.to_datetime(df_historical['close_time'])
+    fig1 = px.line(df_streaming, x='close_time', y='close_price', title='Streaming Data Bitcoin')
+    fig2 = px.line(df_historical, x='close_time', y='close_price', title='Historical Data Bitcoin')
     return fig1, fig2
 
 
