@@ -34,10 +34,7 @@ dash-html-components = "^2.0.0"
 dash-table = "^5.0.0"
 scikit-learn = "^1.4.1.post1"
 pyarrow = "^15.0.0"
-
-[[tool.mypy.overrides]]
-module = "feedparser.*"
-ignore_missing_imports = true
+statsmodels = "^0.14.1"
 
 [build-system]
 requires = ["poetry-core"]

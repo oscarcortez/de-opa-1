@@ -22,8 +22,8 @@ app.layout = html.Div([
     html.Hr(style={'borderWidth': "0.5vh", "width": "100%", "borderColor": "#F3DE8A", "opacity": "unset"}),
     html.Div([
         html.Button('Refresh Data', id='refresh-button', n_clicks=0),
-        html.Div(id='refresh-output'),
         html.Button('Show Prediction', id='prediction-button', n_clicks=0),
+        html.Div(id='refresh-output'),
         dcc.Store(id='button-clicks', data={'refresh': 0, 'prediction': 0})
     ]),
     html.Div(id='page-content'),
