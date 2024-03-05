@@ -13,7 +13,6 @@ from sqlalchemy.inspection import inspect
 from sqlalchemy import create_engine, Table, MetaData, insert, Column, DateTime, Float
 from datetime import timedelta
 
-
 external_stylesheets = ['https://codepen.io/chriddyp/pen/bWLwgP.css']
 app = dash.Dash(__name__, external_stylesheets=external_stylesheets, suppress_callback_exceptions=True)
 
@@ -51,17 +50,18 @@ def predict_price():
     future_dates = pd.date_range(df_ml['close_time'].max() + timedelta(days=1), periods=30, freq='D')
 
     latest_data = df_ml.iloc[-1]
-    future_features = pd.DataFrame(columns=['volume', 'number_of_trades'])
 
-    # Populate future_features with the latest values
+    future_features = pd.DataFrame(index=future_dates, columns=['volume', 'number_of_trades'])
+
     for col in future_features.columns:
-        future_features[col] = [latest_data[col]] * 30
-    
+        future_features[col] = latest_data[col]
+
     future_predictions = model.predict(future_features)
 
+    # Save predictions to the PostgreSQL database
     save_to_database(future_dates, future_predictions)
 
-    # Save predictions to the PostgreSQL database
+    # Create a plot
     prediction_figure = px.line(x=future_dates, y=future_predictions, title='Predicted Prices')
     prediction_figure.update_layout(xaxis_title='Date', yaxis_title='Prediction Price')
 
