@@ -18,7 +18,7 @@ app = dash.Dash(__name__, external_stylesheets=external_stylesheets, suppress_ca
 
 app.layout = html.Div([
     dcc.Location(id='url', refresh=False),
-    html.H1('Kryptobot', style={'color': 'black', 'textAlign': 'center'}),
+    html.H1('Kryptobot DE_OPA_1', style={'color': 'black', 'textAlign': 'center'}),
     html.Hr(style={'borderWidth': "0.5vh", "width": "100%", "borderColor": "#F3DE8A", "opacity": "unset"}),
     html.Div([
         html.Button('Refresh Data', id='refresh-button', n_clicks=0),
@@ -135,7 +135,7 @@ def display_page(pathname, refresh_clicks, prediction_clicks):
     if refresh_clicks is None and prediction_clicks is None:
         # Initial load or no button clicked
         return [html.Div([
-                    html.H2('Charts'),
+                    html.H2('Charts with historical data and streaming data'),
                     dcc.Graph(figure=fig1),
                     dcc.Graph(figure=fig2)
                 ]), '']
@@ -165,7 +165,7 @@ def display_page(pathname, refresh_clicks, prediction_clicks):
         output_message = 'Data calculated and saved to Postgres Database'
 
         return [html.Div([
-                    html.H2('Charts'),
+                    html.H2('Charts with historical data and streaming data from binance'),
                     dcc.Graph(figure=fig1),
                     dcc.Graph(figure=fig2),
                     prediction_output
@@ -173,7 +173,7 @@ def display_page(pathname, refresh_clicks, prediction_clicks):
 
     else:
         return [html.Div([
-                    html.H2('Charts'),
+                    html.H2('Charts with historical data and streaming data from binance'),
                     dcc.Graph(figure=fig1),
                     dcc.Graph(figure=fig2)
                 ]), '']
@@ -181,7 +181,7 @@ def display_page(pathname, refresh_clicks, prediction_clicks):
 def handle_refresh(refresh_clicks, fig1, fig2, output_message):
     # Handle the "Refresh Data" button
     return [html.Div([
-                html.H2('Charts'),
+                html.H2('Charts with historical data and streaming data from binance'),
                 dcc.Graph(figure=fig1),
                 dcc.Graph(figure=fig2)
             ]), output_message]
@@ -189,7 +189,7 @@ def handle_refresh(refresh_clicks, fig1, fig2, output_message):
 def handle_prediction(prediction_clicks, fig1, fig2, prediction_output, output_message):
     # Handle the "Show Prediction" button
     return [html.Div([
-                html.H2('Charts'),
+                html.H2('Charts with historical data and streaming data from binance'),
                 dcc.Graph(figure=fig1),
                 dcc.Graph(figure=fig2),
                 prediction_output
