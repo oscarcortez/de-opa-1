@@ -1,8 +1,6 @@
 import dash
 import pandas as pd
-from dash import dcc
-import numpy as np
-from dash import html
+from dash import html, dcc
 import plotly.express as px
 from dash.dependencies import Output, Input, State
 from dash import dash_table
@@ -28,7 +26,8 @@ app.layout = html.Div([
     html.Div([
         html.Button('Refresh Data', id='refresh-button', n_clicks=0),
         html.Div(id='refresh-output'),
-        html.Button('Show Prediction', id='prediction-button', n_clicks=0)
+        html.Button('Show Prediction', id='prediction-button', n_clicks=0),
+        dcc.Store(id='button-clicks', data={'refresh': 0, 'prediction': 0})
     ]),
     html.Div(id='page-content'),
     html.Hr(style={'borderWidth': "0.5vh", "width": "100%", "borderColor": "#F3DE8A", "opacity": "unset"})
@@ -56,16 +55,19 @@ def predict_price():
     latest_data = df_ml.iloc[-1]
     future_features = pd.DataFrame(columns=['volume', 'number_of_trades'])
 
-# Populate future_features with the latest values
+    # Populate future_features with the latest values
     for col in future_features.columns:
         future_features[col] = [latest_data[col]] * 30
     
     future_predictions = model.predict(future_features)
 
-    # Save predictions to the PostgreSQL database
     save_to_database(future_dates, future_predictions)
 
-    return future_dates, future_predictions
+    # Save predictions to the PostgreSQL database
+    prediction_figure = px.line(x=future_dates, y=future_predictions, title='Predicted Prices')
+    prediction_figure.update_layout(xaxis_title='Date', yaxis_title='Prediction Price')
+
+    return future_dates, future_predictions, prediction_figure
 
 
 # Function to save predictions to the PostgreSQL database
@@ -85,13 +87,18 @@ def save_to_database(dates, predictions):
 
     # Check if the 'predictions' table exists
     inspector = inspect(engine)
-    if not inspector.has_table('predictions'):
-        metadata = MetaData()
-        predictions_table = Table('predictions', metadata,
-            Column('date', DateTime(timezone=False)),  # Specify timezone=False for timestamp without time zone
-            Column('prediction', Float)
-        )
-        metadata.create_all(engine)  # Create the table if it doesn't exist
+    if inspector.has_table('predictions'):
+        # If the table exists, drop it
+        with engine.connect() as connection:
+            table = Table('predictions', MetaData(), autoload_with=connection)
+            table.drop(engine)
+
+        print("Table 'predictions' dropped.")
+
+    # Create the 'predictions' table
+    metadata = MetaData()
+    
+    metadata.create_all(engine)
 
     # Insert the data into the 'predictions' table
     try:
@@ -124,37 +131,72 @@ def get_data():
               prevent_initial_call=True)
 
 def display_page(pathname, refresh_clicks, prediction_clicks):
-    if refresh_clicks > 0 or prediction_clicks > 0:
-        fig1, fig2 = get_data()
-        
-        if prediction_clicks > 0:
-            # Assuming df_historical is the historical dataframe used for predictions
-            future_dates, future_predictions = predict_price()
-            
-            # Display the predicted values
-            prediction_output = html.Div([
-                html.H2('Predictions for the Next 30 Days'),
-                dcc.Graph(figure=px.line(x=future_dates, y=future_predictions, title='Predicted Prices'))
-            ])
-            
-            return [html.Div([
-                        html.H2('Charts'),
-                        dcc.Graph(figure=fig1),
-                        dcc.Graph(figure=fig2),
-                        prediction_output
-                    ]), 'Data refreshed successfully!']
-        else:
-            return [html.Div([
-                        html.H2('Charts'),
-                        dcc.Graph(figure=fig1),
-                        dcc.Graph(figure=fig2)
-                    ]), 'Data refreshed successfully!']
-    else:
-        fig1, fig2 = get_data()
+    fig1, fig2 = get_data()
+    output_message = ''
+
+    if refresh_clicks is None and prediction_clicks is None:
+        # Initial load or no button clicked
         return [html.Div([
                     html.H2('Charts'),
                     dcc.Graph(figure=fig1),
                     dcc.Graph(figure=fig2)
                 ]), '']
+
+    ctx = dash.callback_context
+    button_id = ctx.triggered_id
+
+    if button_id == 'refresh-button' and refresh_clicks:
+        # Handle the "Refresh Data" button
+        output_message = 'Data refreshed successfully!'
+        return [html.Div([
+                    html.H2('Charts'),
+                    dcc.Graph(figure=fig1),
+                    dcc.Graph(figure=fig2)
+                ]), output_message]
+
+    elif button_id == 'prediction-button' and prediction_clicks:
+        # Handle the "Show Prediction" button
+        future_dates, future_predictions, prediction_figure = predict_price()
+
+        # Display the predicted values
+        prediction_output = html.Div([
+            html.H2('Predictions for the Next 30 Days'),
+            dcc.Graph(figure=prediction_figure)
+        ])
+
+        output_message = 'Data calculated and saved to Postgres Database'
+
+        return [html.Div([
+                    html.H2('Charts'),
+                    dcc.Graph(figure=fig1),
+                    dcc.Graph(figure=fig2),
+                    prediction_output
+                ]), output_message]
+
+    else:
+        return [html.Div([
+                    html.H2('Charts'),
+                    dcc.Graph(figure=fig1),
+                    dcc.Graph(figure=fig2)
+                ]), '']
+
+def handle_refresh(refresh_clicks, fig1, fig2, output_message):
+    # Handle the "Refresh Data" button
+    return [html.Div([
+                html.H2('Charts'),
+                dcc.Graph(figure=fig1),
+                dcc.Graph(figure=fig2)
+            ]), output_message]
+
+def handle_prediction(prediction_clicks, fig1, fig2, prediction_output, output_message):
+    # Handle the "Show Prediction" button
+    return [html.Div([
+                html.H2('Charts'),
+                dcc.Graph(figure=fig1),
+                dcc.Graph(figure=fig2),
+                prediction_output
+            ]), output_message]
+
+    
 if __name__ == '__main__':
     app.run_server(debug=True, host="0.0.0.0")
