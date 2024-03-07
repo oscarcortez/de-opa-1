@@ -12,6 +12,7 @@ from sqlalchemy.engine import URL
 from sqlalchemy.inspection import inspect
 from sqlalchemy import create_engine, Table, MetaData, insert, Column, DateTime, Float
 from datetime import timedelta
+from statsmodels.tsa.arima.model import ARIMA
 
 external_stylesheets = ['https://codepen.io/chriddyp/pen/bWLwgP.css']
 app = dash.Dash(__name__, external_stylesheets=external_stylesheets, suppress_callback_exceptions=True)
@@ -31,32 +32,31 @@ app.layout = html.Div([
 ])
 
 def predict_price():
+    # Fetch historical data from the API
     historical = requests.get('http://fastapi:8000/historical_raw', headers={'accept': 'application/json'})
     data_historical = historical.json()
-    df_ml = pd.DataFrame(data_historical['data'])
+    df = pd.DataFrame(data_historical['data'])
 
-    X = df_ml[['volume', 'number_of_trades']]
-    y = df_ml['close_price']
-
-    # Split the data into training and testing sets
-    X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2, random_state=42)
-
-    # Train the machine learning model
-    model = RandomForestRegressor()
-    model.fit(X_train, y_train)
-
-    # Make predictions for the next 30 days
+    # Extract relevant columns and convert to datetime
+    df_ml = df[['close_time', 'close_price']]
     df_ml['close_time'] = pd.to_datetime(df_ml['close_time'])
-    future_dates = pd.date_range(df_ml['close_time'].max() + timedelta(days=1), periods=30, freq='D')
+    df_ml['close_price'] = df_ml['close_price'].astype(float)
+    df_ml.set_index('close_time', inplace=True)
 
-    latest_data = df_ml.iloc[-1]
+    # Fit ARIMA model
+    model = ARIMA(df_ml, order=(10, 1, 2))
+    results = model.fit()
 
-    future_features = pd.DataFrame(index=future_dates, columns=['volume', 'number_of_trades'])
+    # Find the maximum date in the historical data
+    max_date = df_ml.index.max()
 
-    for col in future_features.columns:
-        future_features[col] = latest_data[col]
+    # Generate future dates starting from the next day after the maximum date
+    future_dates = pd.date_range(max_date + timedelta(days=1), periods=30, freq='D')
 
-    future_predictions = model.predict(future_features)
+    # Get forecast values
+    forecast_values = results.get_forecast(steps=30)
+    forecast_data = forecast_values.predicted_mean.to_frame(name='yhat')
+    future_predictions = forecast_data['yhat'].values
 
     # Save predictions to the PostgreSQL database
     save_to_database(future_dates, future_predictions)
