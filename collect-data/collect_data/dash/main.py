@@ -1,6 +1,7 @@
 import dash
 import pandas as pd
 from dash import html, dcc
+from dash import dash_table
 import plotly.express as px
 from dash.dependencies import Output, Input
 import requests
@@ -44,28 +45,36 @@ def predict_price():
     df_ml.set_index('close_time', inplace=True)
 
     # Fit ARIMA model
-    model = ARIMA(df_ml, order=(10, 1, 2))
+    model = ARIMA(df_ml, order=(5, 1, 2))
     results = model.fit()
 
-    # Find the maximum date in the historical data
-    max_date = df_ml.index.max()
+    # Get the last 30 days of historical data
+    last_50_days = df_ml.index[-50:]
+    historical_data = df_ml.loc[last_50_days]
 
-    # Generate future dates starting from the next day after the maximum date
-    future_dates = pd.date_range(max_date + timedelta(days=1), periods=30, freq='D')
-
-    # Get forecast values
+    # Get forecast values for the next 30 days
     forecast_values = results.get_forecast(steps=30)
     forecast_data = forecast_values.predicted_mean.to_frame(name='yhat')
+    future_dates = pd.date_range(last_50_days[-1] + timedelta(days=1), periods=30, freq='D')
     future_predictions = forecast_data['yhat'].values
 
     # Save predictions to the PostgreSQL database
     save_to_database(future_dates, future_predictions)
 
-    # Create a plot
-    prediction_figure = px.line(x=future_dates, y=future_predictions, title='Predicted Prices')
-    prediction_figure.update_layout(xaxis_title='Date', yaxis_title='Prediction Price')
+    # Create a plot for the last 50 days and predictions
+    prediction_figure = px.line()
+    prediction_figure.add_scatter(x=last_50_days, y=historical_data['close_price'].values, mode='lines', name='Historical', line=dict(color='blue'))
+    prediction_figure.add_scatter(x=future_dates, y=future_predictions, mode='lines', name='Prediction', line=dict(color='green'))
+    prediction_figure.update_layout(title='Historical Prices and Predicted Prices', xaxis_title='Date', yaxis_title='Price')
 
-    return future_dates, future_predictions, prediction_figure
+    # Create a DataTable for displaying the data
+    data_table = pd.concat([historical_data, pd.Series(future_predictions, index=future_dates)], axis=1)
+    data_table.columns = ['Historical Prices', 'Predicted Prices']
+    data_table.reset_index(inplace=True)
+
+    return last_50_days, historical_data, prediction_figure, data_table
+
+
 
 
 # Function to save predictions to the PostgreSQL database
@@ -127,7 +136,6 @@ def get_data():
                Input('refresh-button', 'n_clicks'),
                Input('prediction-button', 'n_clicks')],
               prevent_initial_call=True)
-
 def display_page(pathname, refresh_clicks, prediction_clicks):
     fig1, fig2 = get_data()
     output_message = ''
@@ -146,20 +154,21 @@ def display_page(pathname, refresh_clicks, prediction_clicks):
     if button_id == 'refresh-button' and refresh_clicks:
         # Handle the "Refresh Data" button
         output_message = 'Data refreshed successfully!'
-        return [html.Div([
-                    html.H2('Charts'),
-                    dcc.Graph(figure=fig1),
-                    dcc.Graph(figure=fig2)
-                ]), output_message]
+        return handle_refresh(refresh_clicks, fig1, fig2, output_message)
 
     elif button_id == 'prediction-button' and prediction_clicks:
         # Handle the "Show Prediction" button
-        future_dates, future_predictions, prediction_figure = predict_price()
+        last_50_days, historical_data, prediction_figure, data_table = predict_price()
 
-        # Display the predicted values
+        # Display the predicted values and data table
         prediction_output = html.Div([
-            html.H2('Predictions for the Next 30 Days'),
-            dcc.Graph(figure=prediction_figure)
+            html.H2('Historical and Predicted Prices for the Last 50 Days'),
+            dcc.Graph(figure=prediction_figure),
+            dash_table.DataTable(
+                id='data-table',
+                columns=[{'name': col, 'id': col} for col in data_table.columns],
+                data=data_table.to_dict('records')
+            )
         ])
 
         output_message = 'Data calculated and saved to Postgres Database'
