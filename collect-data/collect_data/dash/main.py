@@ -48,22 +48,22 @@ def predict_price():
     model = ARIMA(df_ml, order=(5, 1, 2))
     results = model.fit()
 
-    # Get the last 30 days of historical data
-    last_50_days = df_ml.index[-50:]
-    historical_data = df_ml.loc[last_50_days]
+    # Get the last 10 days of historical data
+    last_10_days = df_ml.index[-10:]
+    historical_data = df_ml.loc[last_10_days]
 
     # Get forecast values for the next 30 days
     forecast_values = results.get_forecast(steps=30)
     forecast_data = forecast_values.predicted_mean.to_frame(name='yhat')
-    future_dates = pd.date_range(last_50_days[-1] + timedelta(days=1), periods=30, freq='D')
+    future_dates = pd.date_range(last_10_days[-1] + timedelta(days=1), periods=30, freq='D')
     future_predictions = forecast_data['yhat'].values
 
     # Save predictions to the PostgreSQL database
     save_to_database(future_dates, future_predictions)
 
-    # Create a plot for the last 50 days and predictions
+    # Create a plot for the last 10 days and predictions
     prediction_figure = px.line()
-    prediction_figure.add_scatter(x=last_50_days, y=historical_data['close_price'].values, mode='lines', name='Historical', line=dict(color='blue'))
+    prediction_figure.add_scatter(x=last_10_days, y=historical_data['close_price'].values, mode='lines', name='Historical', line=dict(color='blue'))
     prediction_figure.add_scatter(x=future_dates, y=future_predictions, mode='lines', name='Prediction', line=dict(color='green'))
     prediction_figure.update_layout(title='Historical Prices and Predicted Prices', xaxis_title='Date', yaxis_title='Price')
 
@@ -72,7 +72,7 @@ def predict_price():
     data_table.columns = ['Historical Prices', 'Predicted Prices']
     data_table.reset_index(inplace=True)
 
-    return last_50_days, historical_data, prediction_figure, data_table
+    return last_10_days, historical_data, prediction_figure, data_table
 
 
 
@@ -158,11 +158,11 @@ def display_page(pathname, refresh_clicks, prediction_clicks):
 
     elif button_id == 'prediction-button' and prediction_clicks:
         # Handle the "Show Prediction" button
-        last_50_days, historical_data, prediction_figure, data_table = predict_price()
+        last_10_days, historical_data, prediction_figure, data_table = predict_price()
 
         # Display the predicted values and data table
         prediction_output = html.Div([
-            html.H2('Historical and Predicted Prices for the Last 50 Days'),
+            html.H2('Historical Prices of the last 10 days and Predicted Prices for the next 30 days'),
             dcc.Graph(figure=prediction_figure),
             dash_table.DataTable(
                 id='data-table',
