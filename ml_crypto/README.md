@@ -62,7 +62,6 @@ Your configuration is now complete. Keep your API key and secret confidential an
 
 ## Usage
 
-1. **Collect Data:**
 ## Create Docker Containers
    - Navigate to the `de-opa1/collect-data` directory.
    - Run the following command:
