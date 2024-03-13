@@ -88,7 +88,7 @@ Your configuration is now complete. Keep your API key and secret confidential an
    - Create the Docker containers
    - Access http://localhost:8000/docs
 
-2. **Access the Dashboard:**
+## Access the Dashboard
    - Once the application is running, go to http://localhost:8050 to access the dashboard.
 
 
